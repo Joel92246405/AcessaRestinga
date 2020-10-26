@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
 
@@ -75,6 +76,7 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
         }
 
         //if (isConnected) {
+        try {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -101,6 +103,11 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
 
                 }
             });
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
+
         //}
 
         return root;

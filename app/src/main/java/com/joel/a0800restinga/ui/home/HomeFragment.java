@@ -1,6 +1,8 @@
 package com.joel.a0800restinga.ui.home;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,19 +58,38 @@ public class HomeFragment extends Fragment {
 
 
         final TextView textView = root.findViewById(R.id.text_home);
+        final Button btn = root.findViewById(R.id.btnCompartilhar);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                String texto = "Olá. Você está recebendo um link para baixar o App de Utilidade Pública Acessa Restinga \n\n"+
+                        "Acesse: https://play.google.com/store/apps/details?id=com.joel.a0800restinga";
+                sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+            }
+        });
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 String Texto = "Olá. Seja bem-vindo ao App de Utilidade Pública desenvolvido para você, cidadão Restinguense.\n\n"
                         +"Nele você vai encontrar:\n\n" +
-                        "*Uma lista telefônica com vários telefones uteis;\n" +
-                        "*Informativo sobre o Covid-19 Municipal e informativos gerais\n" +
-                        "*Curiosidades;\n" +
-                        "*Lei Orgânica Municipal\n" +
-                        "*Eventos;\n" +
+                        "*Uma lista telefônica com vários telefones uteis;\n\n" +
+                        "=>Informativo sobre o Covid-19 Municipal e informativos gerais\n\n" +
+                        "=>Curiosidades;\n\n" +
+                        "=>Lei Orgânica Municipal\n\n" +
+                        "=>Eventos;\n\n" +
                         "E muito mais!\n\n\n" +
                         "Espero estar sendo útil!";
                 textView.setText(Texto);
+
+                Typeface tp = Typeface.createFromAsset(getContext().getAssets(), "LibreBaskerville-Regular.ttf");
+                textView.setTypeface(tp);
+
+
             }
         });
         return root;

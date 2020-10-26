@@ -70,7 +70,7 @@ public class SlideshowFragment extends Fragment {
         if (! isConnected) {
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }
-
+        try {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,7 +95,10 @@ public class SlideshowFragment extends Fragment {
 
                 }
             });
+        }catch (Exception e){
 
+            e.printStackTrace();
+        }
 
 
 

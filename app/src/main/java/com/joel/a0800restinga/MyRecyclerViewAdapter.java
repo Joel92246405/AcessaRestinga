@@ -2,6 +2,7 @@ package com.joel.a0800restinga;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,7 +90,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
         ViewHolder(View itemView) {
             super(itemView);
+
+            Typeface tpNome = Typeface.createFromAsset(itemView.getContext().getAssets(), "LibreBaskerville-Regular.ttf");
+            //Typeface tpTelefone = Typeface.createFromAsset(itemView.getContext().getAssets(), "LibreBaskerville-Regular.ttf");
+            //textView.setTypeface(tp);
+
             nome = itemView.findViewById(R.id.txtnome);
+            nome.setTypeface(tpNome);
             telefone = itemView.findViewById(R.id.Telefone);
             ligar = itemView.findViewById(R.id.ligar);
             itemView.setOnClickListener(this);

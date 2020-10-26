@@ -76,7 +76,7 @@ public class LastNewsFragment extends Fragment implements MyRecyclerViewAdapter.
         if (! isConnected) {
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }
-
+        try {
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -102,7 +102,10 @@ public class LastNewsFragment extends Fragment implements MyRecyclerViewAdapter.
 
                 }
             });
+        }catch (Exception e){
 
+            e.printStackTrace();
+        }
 
         return root;
     }
