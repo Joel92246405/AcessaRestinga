@@ -15,7 +15,6 @@ public class CovidModel {
 
     public CovidModel(String titulo, String detalhe, String data) {
         Titulo = titulo;
-        String teste = "testeteste";
         Detalhe = detalhe;
         Data = data;
     }
