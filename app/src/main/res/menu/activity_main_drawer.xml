@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/ic_home"
+            android:title="@string/menu_home" />
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@mipmap/ic_contatos2"
+            android:title="@string/menu_gallery" />
+
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@mipmap/ic_vocesabia"
+            android:title="@string/menu_slideshow" />
+
+        <item
+            android:id="@+id/nav_covid"
+            android:icon="@mipmap/ic_covid"
+            android:title="Informativo Covid-19" />
+
+        <item
+            android:id="@+id/nav_informativo"
+            android:icon="@mipmap/ic_informativos"
+            android:title="Informativos Gerais" />
+
+        <item
+            android:id="@+id/nav_leis"
+            android:icon="@mipmap/ic_lei"
+            android:title="Lei Orgânica Municipal" />
+
+        <item
+            android:id="@+id/nav_eventos"
+            android:icon="@mipmap/ic_eventos"
+            android:title="Eventos" />
+
+        <item
+            android:id="@+id/nav_news"
+            android:icon="@mipmap/ic_news"
+            android:title="Últimas Noticias" />
+
+    </group>
+</menu>

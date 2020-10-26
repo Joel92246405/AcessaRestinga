@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "683025115177",
+    "firebase_url": "https://telefones-c6ce7.firebaseio.com",
+    "project_id": "telefones-c6ce7",
+    "storage_bucket": "telefones-c6ce7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683025115177:android:da34161233dab0ad3e5438",
+        "android_client_info": {
+          "package_name": "com.joel.a0800restinga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683025115177-iammiiauaf9avj4n1ldq3ahm9hiiagrv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmLNH8ce7hgXgZypIHHm2zHlPJ4IMQxfY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683025115177-iammiiauaf9avj4n1ldq3ahm9hiiagrv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

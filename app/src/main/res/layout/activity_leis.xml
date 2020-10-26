@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.Leis">
+
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="Lei Orgânica"></TextView>
+
+    <TextView
+        android:id="@+id/desc_lei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titulo"
+        android:layout_marginTop="10dp"
+        android:text="É a Constituição Municipal, ou seja, o conjunto de normas jurídicas que regem o município. São feitas pelos Vereadores e sancionadas pelos prefeitos."></TextView>
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:layout_below="@+id/desc_lei"
+        android:id="@+id/pdfView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <!--
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicler_leis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    -->
+
+</RelativeLayout>
