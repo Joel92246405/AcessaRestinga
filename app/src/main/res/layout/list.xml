@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_margin="5dp"
+        android:layout_height="65dp"
+        card_view:cardCornerRadius="4dp"
+        android:background="#D5D5D5">
+
+        <TextView
+            android:id="@+id/txtnome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="2dp"
+            android:text="Nome"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/Telefone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtnome"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="33dp"
+            android:text="TELEFONE"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="6dp"
+            android:id="@+id/ligar"
+            android:src="@android:drawable/stat_sys_phone_call" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</RelativeLayout>

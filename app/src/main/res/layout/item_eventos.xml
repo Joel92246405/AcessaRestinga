@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal"
+android:padding="10dp">
+
+    <TextView
+        android:id="@+id/titulo_eventos"
+        android:layout_width="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginLeft="30dp"
+        android:text="Titulo"/>
+
+    <TextView
+        android:id="@+id/descritivo_eventos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_below="@+id/titulo_eventos"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="30dp"
+        android:text="Descritivo"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/data_evento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descritivo_eventos"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="30dp"
+        android:text="Data"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/link_evento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/data_evento"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="30dp"
+        android:text="Link"
+        android:textSize="15dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:linksClickable="true"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_below="@+id/link_evento"
+        android:layout_width="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="1dp" />
+
+</RelativeLayout>
