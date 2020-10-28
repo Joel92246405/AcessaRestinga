@@ -24,6 +24,15 @@
         <item>Table2</item>
         <item>Table3</item>
     </string-array>
+
+    <string-array name="categorias_telefone">
+        <item>Categorias</item>
+        <item>Público</item>
+        <item>Supermercado</item>
+        <item>Igreja</item>
+        <item>Restaurante</item>
+        <item>Loja</item>
+    </string-array>
     <string name="title_activity_inicial">Acessa Restinga</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

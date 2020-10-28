@@ -14,7 +14,7 @@
         android:layout_margin="15dp"
         android:scrollbarStyle="insideInset"
         android:scrollbars="vertical"
-        android:layout_height="450dp"
+        android:layout_height="350sp"
         card_view:cardCornerRadius="6dp"
         android:background="#D5D5D5">
         <RelativeLayout
@@ -31,7 +31,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:padding="7dp"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     android:singleLine="false"
                     android:soundEffectsEnabled="false"
                     android:textColor="@color/black" />

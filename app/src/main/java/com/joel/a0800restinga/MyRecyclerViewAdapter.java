@@ -49,6 +49,18 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.nome.setText(nome);
 
         holder.telefone.setTag(position);
+        holder.compartilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+
+                String texto = "Olá. Segue o telefone de " + holder.nome.getText() + " - "+ holder.telefone.getText();
+                sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
+                sendIntent.setType("text/plain");
+                v.getContext().startActivity(sendIntent);
+            }
+        });
         holder.ligar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +99,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         TextView nome;
         TextView telefone;
         ImageButton ligar;
+        ImageButton compartilhar;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +111,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             nome = itemView.findViewById(R.id.txtnome);
             nome.setTypeface(tpNome);
             telefone = itemView.findViewById(R.id.Telefone);
+            compartilhar = itemView.findViewById(R.id.share);
             ligar = itemView.findViewById(R.id.ligar);
             itemView.setOnClickListener(this);
         }

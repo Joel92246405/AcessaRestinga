@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
                 textView.setText(Texto);
 
                 Typeface tp = Typeface.createFromAsset(getContext().getAssets(), "LibreBaskerville-Regular.ttf");
-                textView.setTypeface(tp);
+                // textView.setTypeface(tp);
 
 
             }

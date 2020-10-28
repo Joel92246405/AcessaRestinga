@@ -44,6 +44,13 @@ android:orientation="horizontal"
             android:id="@+id/ligar"
             android:src="@android:drawable/stat_sys_phone_call" />
 
+        <ImageButton
+            android:layout_marginTop="6dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:id="@+id/share"
+            android:src="@drawable/ic_menu_share" />
     </androidx.cardview.widget.CardView>
 
 
