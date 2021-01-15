@@ -25,8 +25,8 @@ android {
         applicationId 'com.joel.a0800restinga'
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 6
-        versionName "1.1.5"
+        versionCode 7
+        versionName "1.1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,11 +52,18 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.firebaseui:firebase-ui-database:3.1.0'
     implementation 'com.google.firebase:firebase-database:19.5.0'
+
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.google.firebase:firebase-storage:19.2.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-
+    compile 'me.drakeet.materialdialog:library:1.2.2'
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

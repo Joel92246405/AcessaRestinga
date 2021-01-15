@@ -111,18 +111,10 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
 
     private void search() {
         String categoria = (String) spinnerCategorias.getSelectedItem();
-        //String texto = editText.getText().toString();
 
         try{
             if (categoria.equals("Categorias")) {
 
-                /*if(texto.length() > 0){
-                    Query myTopPostsQuery = FirebaseDatabase.getInstance().getReference("telefones")
-                            .orderByChild("End")
-                            .startAt("\uf8ff"+texto+"\uf8ff")
-                            .endAt("\uf8ff"+texto+"\uf8ff");
-                    myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
-                }else {*/
                     Query myTopPostsQuery = FirebaseDatabase.getInstance().getReference("telefones")
                             .orderByChild("End");
 
@@ -132,15 +124,6 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             }
             else{
 
-                /*if(texto.length() > 0){
-                    Query myTopPostsQuery = FirebaseDatabase.getInstance().getReference("telefones")
-                            .orderByChild("Cat")
-                            .equalTo(categoria)
-                            .startAt("\uf8ff"+texto+"\uf8ff")
-                            .endAt("\uf8ff"+texto+"\uf8ff");
-
-                    myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
-                }else {*/
                     Query myTopPostsQuery = FirebaseDatabase.getInstance().getReference("telefones")
                             .orderByChild("Cat")
                             .equalTo(categoria);
@@ -177,7 +160,7 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
 
-            adapter = new MyRecyclerViewAdapter(getContext(), titulo, item);
+            adapter = new MyRecyclerViewAdapter(null, getContext(), titulo, item);
             recyclerView.setAdapter(adapter);
         }
 

@@ -1,22 +1,47 @@
 package com.joel.a0800restinga;
-
+import com.afollestad.materialdialogs.MaterialDialog;
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.joel.a0800restinga.Model.ContatosAgenda;
 import com.joel.a0800restinga.R;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
+
+
+import static android.content.ContentValues.TAG;
+import static androidx.core.app.ActivityCompat.requestPermissions;
+import static androidx.core.content.ContextCompat.checkSelfPermission;
+import static com.joel.a0800restinga.Activities.Inicial.REQUEST_PERMISSIONS_CODE;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>{
 
@@ -24,12 +49,38 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     private List<String> Nome;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    public static final int REQUEST_PERMISSIONS_CODE = 128;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
-    // data is passed into the constructor
-    public MyRecyclerViewAdapter(Context context, List<String> data, List<String> nome) {
+    public MyRecyclerViewAdapter(Activity activity, Context context, List<String> data, List<String> nome) {
         this.mInflater = LayoutInflater.from(context);
         this.Telefone = data;
         this.Nome = nome;
+
+        if ( !(ContextCompat.checkSelfPermission( context, Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ) ){
+            getContactNames(context);
+        }else{
+            Toast.makeText(context.getApplicationContext(), "Dê permissão de acesso a agenda nas configurações do aparelho para ter uma nova experiência de comunicar via WhatsApp!", Toast.LENGTH_LONG).show();
+        }
+
+    }
+    public ArrayList<ContatosAgenda> contacts = new ArrayList<ContatosAgenda>();
+    private void getContactNames(Context ctx) {
+
+        // Get the ContentResolver
+        ContentResolver cr =  ctx.getContentResolver();
+
+
+        Cursor phones = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null, null, null);
+
+        while (phones.moveToNext()) {
+            String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[^0-9]", "");;
+            String nome = phones.getString(phones.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+            ContatosAgenda contatosAgenda = new ContatosAgenda(nome, number);
+            contacts.add(contatosAgenda);
+        }
+        phones.close();
     }
 
     // inflates the row layout from xml when needed
@@ -39,9 +90,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return new ViewHolder(view);
     }
 
+
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+
         String telefoneb = Telefone.get(position);
         String nome = Nome.get(position);
 
@@ -74,6 +127,83 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             }
         });
 
+        holder.zapzap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String telefone = holder.telefone.getText().toString();
+                String telefoneCompara = telefone.substring((telefone.length()-8)).replaceAll("[^0-9]", "");;
+                //Toast.makeText(view.getContext(), telefoneCompara, Toast.LENGTH_SHORT).show();
+
+                Boolean existeNaAgenda = false;
+
+                ArrayList<ContentValues> data = new ArrayList<ContentValues>();
+
+                for (ContatosAgenda contatosAgenda : contacts){
+
+                    String telefoneArray = contatosAgenda.getTelefone().toString();
+                    telefoneArray = telefoneArray.substring(telefoneArray.length()-8).replaceAll("[^0-9]", "");;
+                    if ( telefoneArray.equals(telefoneCompara)){
+                        existeNaAgenda = true;
+
+                        break;
+                    }
+                }
+
+                if (existeNaAgenda) {
+                    Intent sendIntent = new Intent("android.intent.action.MAIN");
+                    sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setPackage("com.whatsapp");
+                    sendIntent.setType("text/plain");
+                    view.getContext().startActivity(sendIntent);
+                }
+                else{
+                    if( ContextCompat.checkSelfPermission( view.getContext(), Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ){
+                        Toast.makeText(view.getContext(), "Sem permissão para salvar/consultar o contato na agenda. /nAdcione este contato para conversar com ele!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        String phone = holder.telefone.getText().toString();
+                        String phoneName = holder.nome.getText().toString();
+                        verificaSeDesejaCadastrar(view.getContext(), phone, phoneName);
+                    }
+                }
+            }
+        });
+
+    }
+
+    private AlertDialog alerta;
+
+    private void verificaSeDesejaCadastrar(final Context ctx, final String telefone, final String nome) {
+        //Cria o gerador do AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        //define o titulo
+        builder.setTitle("Adcionar Contato");
+        //define a mensagem
+        builder.setMessage("Para utilizar o WhatsApp desse contado tenha ele na sua agenda");
+        //define um botão como positivo
+        builder.setPositiveButton("Cadastrar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                //Toast.makeText(view.getContext(), "positivo=" + arg1, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(Intent.ACTION_INSERT, ContactsContract.Contacts.CONTENT_URI);
+                intent.putExtra(ContactsContract.Intents.Insert.PHONE, telefone);
+                intent.putExtra(ContactsContract.Intents.Insert.NAME, nome);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctx.getApplicationContext().startActivity(intent);
+                Toast.makeText(ctx.getApplicationContext(), "Não existe na agenda", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //define um botão como negativo.
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                //Toast.makeText(view.getContext(), "negativo=" + arg1, Toast.LENGTH_SHORT).show();
+            }
+        });
+        alerta = builder.create();
+        alerta.show();
     }
 
     // total number of rows
@@ -98,8 +228,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nome;
         TextView telefone;
-        ImageButton ligar;
-        ImageButton compartilhar;
+        ImageView ligar;
+        ImageView zapzap;
+        ImageView compartilhar;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -113,6 +244,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             telefone = itemView.findViewById(R.id.Telefone);
             compartilhar = itemView.findViewById(R.id.share);
             ligar = itemView.findViewById(R.id.ligar);
+            zapzap = itemView.findViewById(R.id.zapzap);
+
+
+            if ( (ContextCompat.checkSelfPermission( itemView.getContext(), Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ) ){
+                zapzap.setVisibility(itemView.INVISIBLE);
+            }
+
             itemView.setOnClickListener(this);
         }
 

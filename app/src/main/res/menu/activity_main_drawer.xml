@@ -39,10 +39,6 @@
             android:icon="@mipmap/ic_eventos"
             android:title="Eventos" />
 
-        <item
-            android:id="@+id/nav_news"
-            android:icon="@mipmap/ic_news"
-            android:title="Últimas Noticias" />
 
     </group>
 </menu>

@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
                 RecyclerView recyclerView = findViewById(R.id.recicler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                adapter = new MyRecyclerViewAdapter(getBaseContext(), titulo, item);
+                adapter = new MyRecyclerViewAdapter(MainActivity.this, getBaseContext(), titulo, item);
                 recyclerView.setAdapter(adapter);
             }
 

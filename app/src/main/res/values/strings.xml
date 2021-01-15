@@ -12,7 +12,7 @@
     <string name="title_activity_main__tela_inicial">MainActivity_TelaInicial</string>
 
     <string name="link">NOMEDOAPLICATIVO</string>
-        <string name="LINKDEEXEMPLO">
+    <string name="LINKDEEXEMPLO">
         <a href="http://google.com">Desenvolvido por: INSERIRTEXTO</a>
     </string>
 
@@ -32,9 +32,14 @@
         <item>Igreja</item>
         <item>Restaurante</item>
         <item>Loja</item>
+        <item>Beleza/Estética</item>
+        <item>Mundo Pet</item>
+
     </string-array>
     <string name="title_activity_inicial">Acessa Restinga</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="permdesc_deadlyActivity">Permissão de acesso a contatos</string>
+    <string name="permlab_deadlyActivity">Permissão Contatos</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
