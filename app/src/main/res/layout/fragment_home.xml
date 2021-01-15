@@ -20,7 +20,7 @@
             <com.smarteist.autoimageslider.SliderView
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="360dp"
                 app:sliderAnimationDuration="600"
                 app:sliderAutoCycleDirection="back_and_forth"
                 app:sliderAutoCycleEnabled="true"
@@ -38,22 +38,42 @@
 
     </androidx.cardview.widget.CardView>
 
-    <Button
+    <androidx.cardview.widget.CardView
         android:layout_below="@+id/cardHome"
-        android:id="@+id/btnCompartilhar"
+        android:id="@+id/cardCompartilha"
+        app:cardCornerRadius="6dp"
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="30dp"
-        android:text="COMPARTILHE"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="#001B71"
-        tools:ignore="RtlCompat">
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Compartilhe o App!"
+                android:textSize="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"/>
+            <Button
+                android:id="@+id/btnCompartilhar"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="30dp"
+                android:text="COMPARTILHE"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:background="#001B71"
+                tools:ignore="RtlCompat">
 
-    </Button>
+            </Button>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.joel.a0800restinga.Uteis;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,6 +24,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.joel.a0800restinga.Model.Carrossel;
+import com.joel.a0800restinga.Model.CarrosselOffline;
 import com.joel.a0800restinga.Model.SliderItem;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.Users;
@@ -35,42 +38,29 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
     final private Context context;
     private List<Carrossel> mSliderItems = new ArrayList<Carrossel>();
-    DatabaseReference databaseReference;
 
-    public SliderAdapter(Context context, List<Carrossel> itemFotos) {
+
+
+    public SliderAdapter(Context context) {
         this.context = context;
-        //Cria o nó storage
 
-        ConnectivityManager cm =
-                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        BancoController crud = new BancoController(context);
+        Cursor cursor = crud.carregaDados();
 
-        if (isConnected) {
-/*
-            if (! itemFotos.isEmpty())
-                mSliderItems = itemFotos;
-*/
-            //CarregarFotos carregarFotos = new CarregarFotos();
-            //mSliderItems = carregarFotos.retornarFotos();
 
-            Carrossel sliderItem = new Carrossel();
-            sliderItem.setUrl("https://firebasestorage.googleapis.com/v0/b/telefones-c6ce7.appspot.com/o/zapzap.png?alt=media&token=95eaffb1-413f-46e0-a646-e1603ccf11d5");
-            sliderItem.setDescricao("Google");
-            mSliderItems.add(sliderItem);
+        if(cursor!=null){
+            cursor.moveToFirst();
+            do {
+                Carrossel carrossel= new Carrossel();
 
-        }else {
+                carrossel.setDescricao(cursor.getString(0));       // definição do NOME retornado do cursor
+                carrossel.setUrl(cursor.getString(1));      // definição do EMAIL retornado do cursor
+                carrossel.setTelefone(cursor.getString(2));      // definição da SENHA retornado do cursor
+                mSliderItems.add(carrossel);
+            } while(cursor.moveToNext());
+        }else{
 
-            Carrossel sliderItem = new Carrossel();
-            sliderItem.setUrl("https://firebasestorage.googleapis.com/v0/b/telefones-c6ce7.appspot.com/o/zapzap.png?alt=media&token=95eaffb1-413f-46e0-a646-e1603ccf11d5");
-            sliderItem.setDescricao("Google");
-            mSliderItems.add(sliderItem);
-            sliderItem = new Carrossel();
-            sliderItem.setUrl("https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.abioptica.com.br%2Fwp-content%2Fuploads%2F2020%2F08%2FGoogle_Buscador.png&imgrefurl=https%3A%2F%2Fwww.abioptica.com.br%2Fe-assim-que-sua-otica-usa-o-google-para-vender-mais%2F&tbnid=nXr_5bg2fzqkkM&vet=12ahUKEwjJ2IXy0ZvuAhUCG7kGHTLMAf8QMygFegUIARCzAQ..i&docid=uIXkZveBSUvjKM&w=1280&h=720&q=google&ved=2ahUKEwjJ2IXy0ZvuAhUCG7kGHTLMAf8QMygFegUIARCzAQ");
-            sliderItem.setDescricao("Google 2");
-            mSliderItems.add(sliderItem);
         }
     }
 
@@ -107,6 +97,9 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         viewHolder.textViewDescription.setText(sliderItem.getDescricao());
         viewHolder.textViewDescription.setTextSize(16);
         viewHolder.textViewDescription.setTextColor(Color.BLACK);
+
+
+
         Glide.with(viewHolder.itemView)
                 .load(sliderItem.getUrl())
                 .fitCenter()
@@ -116,7 +109,17 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context, sliderItem.getTelefone(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, sliderItem.getTelefone(), Toast.LENGTH_SHORT).show();
+
+                String telefone = sliderItem.getTelefone();
+
+                Intent sendIntent = new Intent("android.intent.action.MAIN");
+                sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setPackage("com.whatsapp");
+                sendIntent.setType("text/plain");
+                v.getContext().startActivity(sendIntent);
             }
         });
     }

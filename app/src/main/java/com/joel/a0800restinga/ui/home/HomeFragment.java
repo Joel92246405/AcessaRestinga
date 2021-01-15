@@ -1,8 +1,11 @@
 package com.joel.a0800restinga.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +29,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.joel.a0800restinga.Uteis.CarregarFotos;
 import com.joel.a0800restinga.Uteis.SliderAdapter;
+import com.joel.a0800restinga.Uteis.SliderAdapterOffline;
 import com.joel.a0800restinga.ui.telefones.GalleryFragment;
+import com.onesignal.OneSignal;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
@@ -37,36 +42,11 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private List<Carrossel> mSliderItems = new ArrayList<Carrossel>();
-    private DatabaseReference databaseReference;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        try{
-            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-            DatabaseReference telefones = FirebaseDatabase.getInstance().getReference("telefones");
-            DatabaseReference eventos = FirebaseDatabase.getInstance().getReference("eventos");
-            DatabaseReference informativos = FirebaseDatabase.getInstance().getReference("informativos");
-            DatabaseReference last_news = FirebaseDatabase.getInstance().getReference("last_news");
-            DatabaseReference organica = FirebaseDatabase.getInstance().getReference("organica");
-            DatabaseReference vcsabia = FirebaseDatabase.getInstance().getReference("vcsabia");
-            DatabaseReference carrossel = FirebaseDatabase.getInstance().getReference("carrossel");
 
-            telefones.keepSynced(true);
-            carrossel.keepSynced(true);
-            eventos.keepSynced(true);
-            informativos.keepSynced(true);
-            last_news.keepSynced(true);
-            organica.keepSynced(true);
-            vcsabia.keepSynced(true);
-
-
-
-        }catch (Exception e){
-
-            e.printStackTrace();
-        }
 
 
         homeViewModel =
@@ -75,14 +55,28 @@ public class HomeFragment extends Fragment {
 
 
         /*Slider de imagem*/
+        ConnectivityManager cm =
+                (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        SliderView sliderView = root.findViewById(R.id.imageSlider);
-        sliderView.setSliderAdapter(new SliderAdapter(root.getContext(), mSliderItems));
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setScrollTimeInSec(5);
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.startAutoCycle();
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
 
+        if (isConnected) {
+            SliderView sliderView = root.findViewById(R.id.imageSlider);
+            sliderView.setSliderAdapter(new SliderAdapter(root.getContext()));
+            sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+            sliderView.setScrollTimeInSec(5);
+            sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+            sliderView.startAutoCycle();
+        }else{
+            SliderView sliderView = root.findViewById(R.id.imageSlider);
+            sliderView.setSliderAdapter(new SliderAdapterOffline(root.getContext()));
+            sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+            sliderView.setScrollTimeInSec(5);
+            sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+            sliderView.startAutoCycle();
+        }
 
         //final TextView textView = root.findViewById(R.id.text_home);
 

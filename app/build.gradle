@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
-}
 
+}
+apply plugin: 'com.google.gms.google-services'
 android {
     signingConfigs {
         release {
@@ -25,10 +26,13 @@ android {
         applicationId 'com.joel.a0800restinga'
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 7
-        versionName "1.1.7"
+        versionCode 8
+        versionName "1.1.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [onesignal_app_id: "268622ed-3ddf-4716-a14b-bc9c6d488a52",
+                                onesignal_google_project_number: "683025115177"]
     }
 
     buildTypes {
@@ -45,6 +49,9 @@ android {
 
 dependencies {
     //implementation 'com.firebaseui:firebase-ui-database:6.3.0'
+
+
+
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -67,6 +74,19 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'com.onesignal:OneSignal:3.+@aar'
+    implementation 'com.google.android.gms:play-services-gcm:+'
+    implementation 'com.google.android.gms:play-services-gcm:+'
+    "com.google.android.gms:play-services-location:+"
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+
+    // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-messaging'
+
 
 
 }

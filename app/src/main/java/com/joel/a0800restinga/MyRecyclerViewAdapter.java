@@ -108,7 +108,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
 
-                String texto = "Olá. Segue o telefone de " + holder.nome.getText() + " - "+ holder.telefone.getText();
+                String texto = "Olá. Segue o telefone de " + holder.nome.getText() + " - "+ holder.telefone.getText() +
+                        " Aproveite e baixe já o app. Acesse: https://play.google.com/store/apps/details?id=com.joel.a0800restinga";;
                 sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
                 sendIntent.setType("text/plain");
                 v.getContext().startActivity(sendIntent);
