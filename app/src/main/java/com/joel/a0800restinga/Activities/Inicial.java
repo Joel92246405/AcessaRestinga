@@ -36,6 +36,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -94,10 +95,13 @@ public class Inicial extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        listaDeContatos(this, this.getApplicationContext());
+        try {
+            listaDeContatos(this, this.getApplicationContext());
+        }catch (Exception ex){
+            Log.d("INICIALIZACAO", ex.toString());
+        }
 
     }
-
 
 
     @Override
@@ -132,7 +136,7 @@ public class Inicial extends AppCompatActivity {
                     if( permissions[i].equalsIgnoreCase( Manifest.permission.READ_CONTACTS )
                             && grantResults[i] == PackageManager.PERMISSION_GRANTED ){
 
-                        pegarContatos();
+                        //pegarContatos();
                     }
                 }
         }
@@ -143,7 +147,7 @@ public class Inicial extends AppCompatActivity {
                 grantResults
         );
     }
-
+/*
     public ArrayList<String> pegarContatos(){
 
         ArrayList<String> listaDeContatosArray = new ArrayList<String>();
@@ -155,7 +159,7 @@ public class Inicial extends AppCompatActivity {
 
             String nome = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
-            /* Pegue mais informações de acordo com os atributos da sua classe MeuContato */
+
 
             String contato =nome;
 
@@ -166,6 +170,7 @@ public class Inicial extends AppCompatActivity {
 
         return listaDeContatosArray;
     }
+    */
 
     private void listaDeContatos(Activity activity, Context ctx) {
 
@@ -191,10 +196,10 @@ public class Inicial extends AppCompatActivity {
                         REQUEST_PERMISSIONS_CODE
                 );
             }
-        }
-        else{
+        //}
+        //else{
 
-            List<String> contacts = getContactNames(ctx);
+        //    List<String> contacts = getContactNames(ctx);
         }
 
 
@@ -238,6 +243,7 @@ public class Inicial extends AppCompatActivity {
         mMaterialDialog.show();
     }
 
+    /*
     private List<String> getContactNames(Context ctx) {
         List<String> contacts = new ArrayList<String>();
         // Get the ContentResolver
@@ -255,5 +261,6 @@ public class Inicial extends AppCompatActivity {
 
         return contacts;
     }
+     */
 
 }

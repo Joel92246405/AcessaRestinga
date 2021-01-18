@@ -134,41 +134,45 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
                 String telefone = holder.telefone.getText().toString();
                 String telefoneCompara = telefone.substring((telefone.length()-8)).replaceAll("[^0-9]", "");;
-                //Toast.makeText(view.getContext(), telefoneCompara, Toast.LENGTH_SHORT).show();
 
-                Boolean existeNaAgenda = false;
+                try {
 
-                ArrayList<ContentValues> data = new ArrayList<ContentValues>();
+                    Boolean existeNaAgenda = false;
 
-                for (ContatosAgenda contatosAgenda : contacts){
+                    ArrayList<ContentValues> data = new ArrayList<ContentValues>();
 
-                    String telefoneArray = contatosAgenda.getTelefone().toString();
-                    telefoneArray = telefoneArray.substring(telefoneArray.length()-8).replaceAll("[^0-9]", "");;
-                    if ( telefoneArray.equals(telefoneCompara)){
-                        existeNaAgenda = true;
+                    for (ContatosAgenda contatosAgenda : contacts) {
 
-                        break;
+                        String telefoneArray = contatosAgenda.getTelefone().toString();
+                        telefoneArray = telefoneArray.substring(telefoneArray.length() - 8).replaceAll("[^0-9]", "");
+                        ;
+                        if (telefoneArray.equals(telefoneCompara)) {
+                            existeNaAgenda = true;
+
+                            break;
+                        }
                     }
-                }
 
-                if (existeNaAgenda) {
-                    Intent sendIntent = new Intent("android.intent.action.MAIN");
-                    sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.setPackage("com.whatsapp");
-                    sendIntent.setType("text/plain");
-                    view.getContext().startActivity(sendIntent);
-                }
-                else{
-                    if( ContextCompat.checkSelfPermission( view.getContext(), Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ){
-                        Toast.makeText(view.getContext(), "Sem permissão para salvar/consultar o contato na agenda. /nAdcione este contato para conversar com ele!", Toast.LENGTH_SHORT).show();
+                    if (existeNaAgenda) {
+                        Intent sendIntent = new Intent("android.intent.action.MAIN");
+                        sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.setPackage("com.whatsapp");
+                        sendIntent.setType("text/plain");
+                        view.getContext().startActivity(sendIntent);
+                    } else {
+                        if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(view.getContext(), "Sem permissão para salvar/consultar o contato na agenda. /nAdcione este contato para conversar com ele!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String phone = holder.telefone.getText().toString();
+                            String phoneName = holder.nome.getText().toString();
+                            verificaSeDesejaCadastrar(view.getContext(), phone, phoneName);
+                        }
                     }
-                    else{
-                        String phone = holder.telefone.getText().toString();
-                        String phoneName = holder.nome.getText().toString();
-                        verificaSeDesejaCadastrar(view.getContext(), phone, phoneName);
-                    }
+                }catch (Exception ex){
+                    Log.d("ZapRecView", ex.toString());
+                    Toast.makeText(view.getContext(), "Não foi possível entrar em contato com esse número", Toast.LENGTH_SHORT).show();
                 }
             }
         });

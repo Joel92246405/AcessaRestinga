@@ -49,16 +49,17 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginRight="90dp"
             android:id="@+id/zapzap"
             android:layout_gravity="right"
             android:src="@mipmap/ic_zap" />
 
         <ImageView
 
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="45dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginRight="45dp"
             android:layout_gravity="right"
             android:id="@+id/share"
             android:src="@mipmap/ic_share" />

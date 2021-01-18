@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,23 +46,28 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
         this.context = context;
 
 
-        BancoController crud = new BancoController(context);
-        Cursor cursor = crud.carregaDados();
+        try {
+            BancoController crud = new BancoController(context);
+            Cursor cursor = crud.carregaDados();
 
 
-        if(cursor!=null){
-            cursor.moveToFirst();
-            do {
-                Carrossel carrossel= new Carrossel();
+            if (cursor.moveToFirst()) {
 
-                carrossel.setDescricao(cursor.getString(0));       // definição do NOME retornado do cursor
-                carrossel.setUrl(cursor.getString(1));      // definição do EMAIL retornado do cursor
-                carrossel.setTelefone(cursor.getString(2));      // definição da SENHA retornado do cursor
-                mSliderItems.add(carrossel);
-            } while(cursor.moveToNext());
-        }else{
+                do {
+                    Carrossel carrossel = new Carrossel();
+                    carrossel.setDescricao(cursor.getString(0));       // definição do NOME retornado do cursor
+                    carrossel.setUrl(cursor.getString(1));      // definição do EMAIL retornado do cursor
+                    carrossel.setTelefone(cursor.getString(2));      // definição da SENHA retornado do cursor
+                    mSliderItems.add(carrossel);
+                } while (cursor.moveToNext());
+            } else {
 
+            }
+        }catch (Exception ex)
+        {
+            Log.d("CARROSSEL_SA_ON", ex.toString());
         }
+
     }
 
 
@@ -112,14 +118,15 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
                 //Toast.makeText(context, sliderItem.getTelefone(), Toast.LENGTH_SHORT).show();
 
                 String telefone = sliderItem.getTelefone();
-
-                Intent sendIntent = new Intent("android.intent.action.MAIN");
-                sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.setPackage("com.whatsapp");
-                sendIntent.setType("text/plain");
-                v.getContext().startActivity(sendIntent);
+                if (!sliderItem.getTelefone().equals("0")) {
+                    Intent sendIntent = new Intent("android.intent.action.MAIN");
+                    sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setPackage("com.whatsapp");
+                    sendIntent.setType("text/plain");
+                    v.getContext().startActivity(sendIntent);
+                }
             }
         });
     }
