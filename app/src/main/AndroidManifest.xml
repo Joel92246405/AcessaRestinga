@@ -27,6 +27,7 @@
         </activity>
 
         <activity android:name=".Activities.Inicial" />
+        <activity android:name=".Activities.EuAlugo" />
         <activity android:name=".TelaInicial" />
         <activity android:name=".MainActivity" />
         <activity android:name=".VoceSabia" />
@@ -35,16 +36,23 @@
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="false"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/img_splash" />
+            android:resource="@drawable/ic_menu_send" />
         <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more. -->
         <meta-data

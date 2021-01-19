@@ -26,8 +26,13 @@
     <fragment
         android:id="@+id/nav_covid"
         android:name="com.joel.a0800restinga.ui.covid.CovidFragment"
-        android:label="Informativo Covid-19"
-        tools:layout="@layout/fragment_covid" />
+        android:label="Informativo Covid-19" />
+
+    <fragment
+        android:id="@+id/nav_eualugo"
+        android:name="com.joel.a0800restinga.ui.EuAlugo.EuAlugoFragment"
+        android:label="Aluguel"
+        tools:layout="@layout/fragment_eualugo" />
 
     <fragment
         android:id="@+id/nav_informativo"
@@ -40,18 +45,6 @@
         android:name="com.joel.a0800restinga.ui.leis.LeisFragment"
         android:label="Lei Orgânica Municipal"
         tools:layout="@layout/fragment_leis" />
-
-    <fragment
-        android:id="@+id/nav_eventos"
-        android:name="com.joel.a0800restinga.ui.event.EventFragment"
-        android:label="Eventos"
-        tools:layout="@layout/fragment_eventos" />
-
-    <fragment
-        android:id="@+id/nav_news"
-        android:name="com.joel.a0800restinga.ui.lastnews.LastNewsFragment"
-        android:label="Últimas Noticias"
-        tools:layout="@layout/fragment_lastnews" />
 
 
 </navigation>

@@ -37,7 +37,7 @@ public class CovidFragment extends Fragment implements MyRecyclerViewAdapter.Ite
     private RecyclerView.LayoutManager layoutManager;
 
     DatabaseReference databaseReference;
-    List<String> titulo, item, data;
+    List<String> titulo, item, data, infoAdd;
     ArrayAdapter<String> arrayAdapter;
     CovidModel covidModel;
     RecyclerAdapter_Covid adapter;
@@ -48,6 +48,7 @@ public class CovidFragment extends Fragment implements MyRecyclerViewAdapter.Ite
         titulo = new ArrayList<String>();
         item = new ArrayList<String>();
         data = new ArrayList<String>();
+        infoAdd = new ArrayList<String>();
 
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         databaseReference = FirebaseDatabase.getInstance().getReference("covid");
@@ -74,6 +75,7 @@ public class CovidFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                     titulo.clear();
                     item.clear();
                     data.clear();
+                    infoAdd.clear();
 
                     for (DataSnapshot d : snapshot.getChildren()) {
                         covidModel = d.getValue(CovidModel.class);
@@ -81,12 +83,12 @@ public class CovidFragment extends Fragment implements MyRecyclerViewAdapter.Ite
                         titulo.add(String.valueOf(texto));
                         item.add(covidModel.getDetalhe());
                         data.add(covidModel.getData());
-
+                        infoAdd.add(covidModel.getInfoAdd());
                     }
 
                     recyclerView = root.findViewById(R.id.recicler_covid);
                     recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-                    adapter = new RecyclerAdapter_Covid(getContext(), titulo, item, data);
+                    adapter = new RecyclerAdapter_Covid(getContext(), titulo, item, data, infoAdd);
                     recyclerView.setAdapter(adapter);
                 }
 

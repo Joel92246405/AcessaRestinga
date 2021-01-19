@@ -36,6 +36,15 @@
         <item>Mundo Pet</item>
 
     </string-array>
+
+    <string-array name="categorias_aluguel">
+        <item>Todos</item>
+        <item>Casa</item>
+        <item>Festa</item>
+        <item>Outros</item>
+
+    </string-array>
+
     <string name="title_activity_inicial">Acessa Restinga</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="permdesc_deadlyActivity">Permissão de acesso a contatos</string>
@@ -52,4 +61,5 @@
 
     <string name="lei_organica">teste</string>
     <string name="inicial">Este app tem a finalidade de atender você, cidadão Restinguense com várias funcionalidades de Utilidade </string>
+    <string name="euAlugo">Aluguel</string>
 </resources>

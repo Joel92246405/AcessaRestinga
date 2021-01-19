@@ -36,6 +36,7 @@ public class SplashScreen extends AppCompatActivity {
         try{
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
             DatabaseReference telefones = FirebaseDatabase.getInstance().getReference("telefones");
+            DatabaseReference eu_alugo = FirebaseDatabase.getInstance().getReference("eu_alugo");
             DatabaseReference eventos = FirebaseDatabase.getInstance().getReference("eventos");
             DatabaseReference informativos = FirebaseDatabase.getInstance().getReference("informativos");
             DatabaseReference last_news = FirebaseDatabase.getInstance().getReference("last_news");
@@ -45,6 +46,7 @@ public class SplashScreen extends AppCompatActivity {
 
             telefones.keepSynced(true);
             carrossel.keepSynced(true);
+            eu_alugo.keepSynced(true);
             eventos.keepSynced(true);
             informativos.keepSynced(true);
             last_news.keepSynced(true);
