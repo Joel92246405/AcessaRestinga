@@ -17,12 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.R;
+import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Leis;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leis extends AppCompatActivity implements com.joel.a0800restinga.MyRecyclerViewAdapter.ItemClickListener {
+public class Leis extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;

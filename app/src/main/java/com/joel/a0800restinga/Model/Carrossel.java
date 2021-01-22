@@ -4,15 +4,25 @@ public class Carrossel {
     private String Url;
     private String Descricao;
     private String Telefone;
+    private String Whatsapp;
 
-    public Carrossel(String url, String descricao, String telefone) {
+    public Carrossel(String url, String descricao, String telefone, String whatsapp) {
         Url = url;
         Descricao = descricao;
         Telefone = telefone;
+        Whatsapp = whatsapp;
     }
 
     public Carrossel() {
 
+    }
+
+    public String getWhatsapp() {
+        return Whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        Whatsapp = whatsapp;
     }
 
     public String getUrl() {

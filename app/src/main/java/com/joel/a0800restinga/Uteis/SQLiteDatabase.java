@@ -18,7 +18,8 @@ public class SQLiteDatabase extends SQLiteOpenHelper {
     public static final String DESCRICAO = "descricao";
     public static final String LINK = "link ";
     public static final String TELEFONE = "telefone";
-    private static final int VERSAO = 1;
+    public static final String WHATSAPP = "whatsapp";
+    private static final int VERSAO = 2;
 
 /*
 *
@@ -34,11 +35,13 @@ public class SQLiteDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(android.database.sqlite.SQLiteDatabase db) {
+
         String sql = "CREATE TABLE "+TABELA+"("
                 + ID + " integer primary key autoincrement,"
                 + DESCRICAO + " text,"
                 + LINK + " text,"
-                + TELEFONE + " text"
+                + TELEFONE + " text,"
+                + WHATSAPP + " text"
                 +")";
 
 

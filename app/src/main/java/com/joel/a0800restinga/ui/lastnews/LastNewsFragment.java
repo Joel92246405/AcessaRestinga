@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joel.a0800restinga.Model.LastNewsModel;
-import com.joel.a0800restinga.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_LastNews;
 import com.google.firebase.database.DataSnapshot;

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.0800Restinga" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#214322</item>
+        <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryVariant">#6A8A45</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -21,7 +21,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.0800Restinga.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
 
     <style name="Theme.0800Restinga.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -39,18 +39,21 @@ public class SliderAdapterOffline extends SliderViewAdapter<SliderAdapterOffline
         carrossel.setUrl(R.drawable.compartilha);
         carrossel.setDescricao("Você pode compartilhar o contato com seu amigo que pediu e ainda não tem o aplicativo!");
         carrossel.setTelefone("");
+        carrossel.setWhatsapp("N");
         mSliderItemsOffline.add(carrossel);
 
         carrossel= new CarrosselOffline();
         carrossel.setUrl(R.drawable.whatsapp);
         carrossel.setDescricao("Agora, caso você tenha o contato adcionado no telefone, pode enviar mensagem pelo WhatsApp!");
         carrossel.setTelefone("");
+        carrossel.setWhatsapp("N");
         mSliderItemsOffline.add(carrossel);
 
         carrossel= new CarrosselOffline();
         carrossel.setUrl(R.drawable.ligacao);
         carrossel.setDescricao("Ao clicar no link do telefone, você ja faz a chada para o contato de forma simples e rápida!");
         carrossel.setTelefone("");
+        carrossel.setWhatsapp("N");
         mSliderItemsOffline.add(carrossel);
     }
 

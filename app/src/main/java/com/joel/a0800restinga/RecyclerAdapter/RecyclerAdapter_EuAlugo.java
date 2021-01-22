@@ -26,7 +26,7 @@ import static com.joel.a0800restinga.Activities.Inicial.REQUEST_PERMISSIONS_CODE
 
 public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapter_EuAlugo.ViewHolder>{
 
-    private List<String> Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
+    private List<String> Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
 
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
@@ -36,7 +36,7 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
         this.mInflater = LayoutInflater.from(context);
         this.Nome = nome;
         this.Telefone = telefone;
-        this.TipoDecontrato = tipoDeContrato;
+        this.TipodeContrato = tipoDeContrato;
         this.Valor = valor;
         this.WhatsApp = whatsApp;
         this.Titulo = titulo;
@@ -59,7 +59,7 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
 
         Nome = this.Nome.get(position);
         Telefone = this.Telefone.get(position);
-        TipoDecontrato = this.TipoDecontrato.get(position);
+        TipoDecontrato = this.TipodeContrato.get(position);
         Valor = this.Valor.get(position);
         WhatsApp = this.WhatsApp.get(position);
         Titulo = this.Titulo.get(position);
@@ -67,7 +67,7 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
         Endereco = this.Endereco.get(position);
         Categoria = this.Categoria.get(position);
 
-        final String maisinfo = "Nome: " + Nome + "\nTipo de contrato: " + TipoDecontrato +" \nEntre em contato pela tela anterior";
+        final String maisinfo = "Nome: " + Nome + "\nEndereço: " + Endereco +" \nEntre em contato pela tela anterior";
 
         holder.Titulo.setText(Titulo);
         holder.Nome.setText(Nome);

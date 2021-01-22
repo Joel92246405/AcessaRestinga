@@ -4,15 +4,25 @@ public class CarrosselOffline {
     private int Url;
     private String Descricao;
     private String Telefone;
+    private String Whatsapp;
 
-    public CarrosselOffline(int url, String descricao, String telefone) {
+    public CarrosselOffline(int url, String descricao, String telefone, String whatsapp) {
         Url = url;
         Descricao = descricao;
         Telefone = telefone;
+        Whatsapp = whatsapp;
     }
 
     public CarrosselOffline() {
 
+    }
+
+    public String getWhatsapp() {
+        return Whatsapp;
+    }
+
+    public void setWhatsapp(String whatsapp) {
+        Whatsapp = whatsapp;
     }
 
     public int getUrl() {

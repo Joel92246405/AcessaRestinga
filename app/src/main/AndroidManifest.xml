@@ -26,16 +26,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.Inicial" />
+        <activity android:name=".Activities.Inicial"
+            android:theme="@style/Theme.0800Restinga.NoActionBar"/>
         <activity android:name=".Activities.EuAlugo" />
-        <activity android:name=".TelaInicial" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".VoceSabia" />
-        <activity android:name=".Informativos" />
+        <activity android:name=".Activities.TelaInicial" />
+        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.VoceSabia" />
+        <activity android:name=".Activities.Informativos" />
         <activity android:name=".Activities.Leis" />
+        <activity android:name=".Activities.SaudePublica" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".Uteis.MyFirebaseMessagingService"
             android:exported="false"
             android:enabled="true">
             <intent-filter>
@@ -43,7 +45,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".MyFirebaseInstanceIDService">
+            android:name=".Uteis.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
@@ -58,7 +60,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/lite_blue" />
-        <receiver android:name=".MyFirebaseMessagingService" />
+        <receiver android:name=".Uteis.MyFirebaseMessagingService" />
     </application>
 
 </manifest>

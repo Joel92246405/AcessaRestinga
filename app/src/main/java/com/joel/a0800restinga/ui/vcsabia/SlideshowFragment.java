@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter_VcSabia;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_VcSabia;
 import com.joel.a0800restinga.Model.VoceSabiaModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

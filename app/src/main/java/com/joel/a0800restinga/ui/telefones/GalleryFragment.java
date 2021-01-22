@@ -1,37 +1,32 @@
 package com.joel.a0800restinga.ui.telefones;
 
-import android.app.ActionBar;
-import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.Query;
-import com.joel.a0800restinga.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.Users;
+import com.joel.a0800restinga.Model.Users;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, AdapterView.OnItemSelectedListener{
 
@@ -56,18 +50,20 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
     //private ImageButton imageButton;
     ListView listView;
     DatabaseReference databaseReference;
-    List<String> titulo, item;
+    List<String> titulo, item, whatsapp;
     ArrayAdapter<String> arrayAdapter;
     Users user;
     MyRecyclerViewAdapter adapter;
     Spinner spinnerCategorias;
     private View root;
+    Button QueroAnunciar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         titulo = new ArrayList<String>();
         item = new ArrayList<String>();
+        whatsapp = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.list, R.id.txtnome, titulo);
 
         root = inflater.inflate(R.layout.activity_main, container, false);
@@ -106,6 +102,16 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }
 
+        QueroAnunciar = root.findViewById(R.id.COLOCARMEUFONE);
+        QueroAnunciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://forms.gle/fGLLwaqu3uLVEWjW9";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
         return root;
     }
 
@@ -148,11 +154,14 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             titulo.clear();
             item.clear();
+            whatsapp.clear();
             for (DataSnapshot d : snapshot.getChildren()) {
                 user = d.getValue(Users.class);
                 String texto = user.getTel();
                 titulo.add(String.valueOf(texto));
                 item.add(user.getEnd());
+                whatsapp.add(user.getWhatsapp());
+
             }
 
             recyclerView = root.findViewById(R.id.recicler);
@@ -160,7 +169,7 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
 
-            adapter = new MyRecyclerViewAdapter(null, getContext(), titulo, item);
+            adapter = new MyRecyclerViewAdapter(null, getContext(), titulo, item, whatsapp);
             recyclerView.setAdapter(adapter);
         }
 

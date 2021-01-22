@@ -20,7 +20,7 @@ public class BancoController {
         Cursor cursor = null;
         try {
 
-            String[] campos = {banco.DESCRICAO, banco.LINK, banco.TELEFONE};
+            String[] campos = {banco.DESCRICAO, banco.LINK, banco.TELEFONE, banco.WHATSAPP};
             db = banco.getReadableDatabase();
             cursor = db.query(banco.TABELA, campos, null, null, null, null, null, null);
 
@@ -34,7 +34,7 @@ public class BancoController {
         return cursor;
     }
 
-    public String insereDado(String descricao, String link, String telefone){
+    public String insereDado(String descricao, String link, String telefone, String whatsapp){
         ContentValues valores;
         long resultado;
         String result = "";
@@ -44,6 +44,7 @@ public class BancoController {
             valores.put(SQLiteDatabase.DESCRICAO, descricao);
             valores.put(SQLiteDatabase.LINK, link);
             valores.put(SQLiteDatabase.TELEFONE, telefone);
+            valores.put(SQLiteDatabase.WHATSAPP, whatsapp);
 
             resultado = db.insert(SQLiteDatabase.TABELA, null, valores);
             db.close();

@@ -2,28 +2,20 @@ package com.joel.a0800restinga.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.joel.a0800restinga.MainActivity;
 import com.joel.a0800restinga.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -33,10 +25,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -87,7 +75,7 @@ public class Inicial extends AppCompatActivity {
                 .build();
 */
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_informativo, R.id.nav_covid, R.id.nav_eualugo, R.id.nav_leis)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_informativo, R.id.nav_covid, R.id.nav_eualugo, R.id.nav_leis, R.id.navsaude)
                 .setDrawerLayout(drawer)
                 .build();
 

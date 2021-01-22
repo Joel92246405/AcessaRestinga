@@ -43,6 +43,7 @@ public class SplashScreen extends AppCompatActivity {
             DatabaseReference organica = FirebaseDatabase.getInstance().getReference("organica");
             DatabaseReference vcsabia = FirebaseDatabase.getInstance().getReference("vcsabia");
             DatabaseReference carrossel = FirebaseDatabase.getInstance().getReference("carrossel");
+            DatabaseReference saudepublica = FirebaseDatabase.getInstance().getReference("saudepublica");
 
             telefones.keepSynced(true);
             carrossel.keepSynced(true);
@@ -52,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
             last_news.keepSynced(true);
             organica.keepSynced(true);
             vcsabia.keepSynced(true);
-
+            saudepublica.keepSynced(true);
 
 
         }catch (Exception e){
@@ -80,9 +81,10 @@ public class SplashScreen extends AppCompatActivity {
                         String descricao = carrossel.getDescricao();
                         String link = carrossel.getUrl();
                         String telefone = carrossel.getTelefone();
+                        String whatsapp = carrossel.getWhatsapp();
                         String resultado;
 
-                        resultado = crud.insereDado(descricao,link,telefone);
+                        resultado = crud.insereDado(descricao,link,telefone, whatsapp);
 
                     }
             }

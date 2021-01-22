@@ -37,14 +37,18 @@
     <fragment
         android:id="@+id/nav_informativo"
         android:name="com.joel.a0800restinga.ui.informativos.InformativosFragment"
-        android:label="Informativos Gerais"
+        android:label="Transporte"
         tools:layout="@layout/fragment_informativos" />
 
     <fragment
         android:id="@+id/nav_leis"
         android:name="com.joel.a0800restinga.ui.leis.LeisFragment"
-        android:label="Lei Orgânica Municipal"
+        android:label="Legislativo"
         tools:layout="@layout/fragment_leis" />
-
+    <fragment
+        android:id="@+id/navsaude"
+        android:name="com.joel.a0800restinga.ui.saudepublica.SaudePublicaFragment"
+        android:label="Saúde Pública"
+        tools:layout="@layout/fragment_saudepublica" />
 
 </navigation>

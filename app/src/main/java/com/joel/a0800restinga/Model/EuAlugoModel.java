@@ -1,7 +1,7 @@
 package com.joel.a0800restinga.Model;
 
 public class EuAlugoModel {
-    private String Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
+    private String Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
     public String getEndereco() {
         return Endereco;
     }
@@ -13,7 +13,7 @@ public class EuAlugoModel {
     public EuAlugoModel(String nome, String telefone, String tipoDecontrato, String valor, String whatsApp, String titulo, String ocultarValor, String endereco, String categoria) {
         Nome = nome;
         Telefone = telefone;
-        TipoDecontrato = tipoDecontrato;
+        TipodeContrato = tipoDecontrato;
         Valor = valor;
         WhatsApp = whatsApp;
         Titulo = titulo;
@@ -50,12 +50,12 @@ public class EuAlugoModel {
         Telefone = telefone;
     }
 
-    public String getTipoDecontrato() {
-        return TipoDecontrato;
+    public String getTipodeContrato() {
+        return TipodeContrato;
     }
 
-    public void setTipoDecontrato(String tipoDecontrato) {
-        TipoDecontrato = tipoDecontrato;
+    public void setTipodeContrato(String tipoDecontrato) {
+        TipodeContrato = tipoDecontrato;
     }
 
     public String getValor() {

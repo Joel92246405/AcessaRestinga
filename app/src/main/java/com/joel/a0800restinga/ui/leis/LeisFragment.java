@@ -1,8 +1,10 @@
 package com.joel.a0800restinga.ui.leis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.joel.a0800restinga.Model.LeisModel;
 
-import com.joel.a0800restinga.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Leis;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +46,7 @@ public class LeisFragment extends Fragment implements MyRecyclerViewAdapter.Item
     ArrayAdapter<String> arrayAdapter;
     LeisModel leisModel;
     RecyclerAdapter_Leis adapter;
+    Button btn;
     private String TAG;
     PDFView mPDFView;
 
@@ -59,7 +62,21 @@ public class LeisFragment extends Fragment implements MyRecyclerViewAdapter.Item
 
 
         final View root = inflater.inflate(R.layout.activity_leis, container, false);
-
+        btn = (Button)  root.findViewById(R.id.ButtonEmailCamara);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setData(Uri.parse("mailto"));
+                email.setType("message/rfc822");
+                email.putExtra(Intent.EXTRA_EMAIL,
+                        new String[]{"admin@camararestinga.sp.gov.br"});
+                email.putExtra(Intent.EXTRA_SUBJECT,
+                        "");
+                email.putExtra(Intent.EXTRA_TEXT, "");
+                startActivity(Intent.createChooser(email, "ENVIAR E-MAIL"));
+            }
+        });
 
         mPDFView = (PDFView)  root.findViewById(R.id.pdfView);
         mPDFView.fromAsset("lei.pdf")
@@ -91,7 +108,7 @@ public class LeisFragment extends Fragment implements MyRecyclerViewAdapter.Item
 
                     recyclerView = root.findViewById(R.id.recicler_leis);
                     recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-                    adapter = new RecyclerAdapter_Leis(getContext(), titulo, item);
+
                     recyclerView.setAdapter(adapter);
                 }
 

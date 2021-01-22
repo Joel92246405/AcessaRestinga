@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Informativos"
+    tools:context=".Activities.Informativos"
     >
 
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_transporte"
+        android:padding="8dp"
+        android:text="Os telefones relacionados a transporte podem ser localizados em Telefone!">
 
+
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recicler_informativos"
+        android:layout_below="@+id/txt_transporte"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

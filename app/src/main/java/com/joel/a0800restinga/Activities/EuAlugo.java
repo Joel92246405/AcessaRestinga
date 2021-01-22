@@ -70,7 +70,7 @@ public class EuAlugo extends AppCompatActivity implements com.joel.a0800restinga
 
                 //RecyclerView recyclerView = findViewById(R.id.recicler_leis);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                adapter = new RecyclerAdapter_Leis(getBaseContext(), titulo, descricao);
+
                 recyclerView.setAdapter(adapter);
             }
 

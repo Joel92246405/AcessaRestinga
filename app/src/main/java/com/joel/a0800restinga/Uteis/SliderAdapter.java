@@ -4,36 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 import com.joel.a0800restinga.Model.Carrossel;
-import com.joel.a0800restinga.Model.CarrosselOffline;
-import com.joel.a0800restinga.Model.SliderItem;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.Users;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
 
@@ -58,6 +43,7 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
                     carrossel.setDescricao(cursor.getString(0));       // definição do NOME retornado do cursor
                     carrossel.setUrl(cursor.getString(1));      // definição do EMAIL retornado do cursor
                     carrossel.setTelefone(cursor.getString(2));      // definição da SENHA retornado do cursor
+                    carrossel.setWhatsapp(cursor.getString(3));
                     mSliderItems.add(carrossel);
                 } while (cursor.moveToNext());
             } else {
@@ -117,15 +103,24 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapter
 
                 //Toast.makeText(context, sliderItem.getTelefone(), Toast.LENGTH_SHORT).show();
 
-                String telefone = sliderItem.getTelefone();
-                if (!sliderItem.getTelefone().equals("0")) {
-                    Intent sendIntent = new Intent("android.intent.action.MAIN");
-                    sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá!");
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.setPackage("com.whatsapp");
-                    sendIntent.setType("text/plain");
-                    v.getContext().startActivity(sendIntent);
+                if (sliderItem.getWhatsapp().toString().equals("S")) {
+                    //ZAPZAP
+                    String telefone = sliderItem.getTelefone();
+                    if (!sliderItem.getTelefone().equals("0")) {
+                        Intent sendIntent = new Intent("android.intent.action.MAIN");
+                        sendIntent.putExtra("jid", "55" + telefone + "@s.whatsapp.net");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Olá. Estou entrando em contato pois peguei o contato no App Acessa Restinga!");
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.setPackage("com.whatsapp");
+                        sendIntent.setType("text/plain");
+                        v.getContext().startActivity(sendIntent);
+                    }
+                }else{
+                    //LIGAR
+                    String telefone = sliderItem.getTelefone();
+                    Uri uri = Uri.parse("tel:"+telefone);
+                    Intent intent = new Intent(Intent.ACTION_DIAL,uri);
+                    v.getContext().startActivity(intent);
                 }
             }
         });

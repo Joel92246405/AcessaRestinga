@@ -1,14 +1,17 @@
 package com.joel.a0800restinga.ui.EuAlugo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -41,11 +44,12 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
 
 
     DatabaseReference databaseReference;
-    List<String> Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
+    List<String> Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
     ArrayAdapter<String> arrayAdapter;
     EuAlugoModel euAlugoModel;
     RecyclerAdapter_EuAlugo adapter;
     Spinner spinner;
+    Button TenhoCasa, ConhecoQuemTenha;
     private View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,7 +57,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
 
         Nome = new ArrayList<String>();
         Telefone = new ArrayList<String>();
-        TipoDecontrato = new ArrayList<String>();
+        TipodeContrato = new ArrayList<String>();
         Valor = new ArrayList<String>();
         WhatsApp = new ArrayList<String>();
         Titulo = new ArrayList<String>();
@@ -95,7 +99,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Nome.clear();
                     Telefone.clear();
-                    TipoDecontrato.clear();
+                    TipodeContrato.clear();
                     Valor.clear();
                     WhatsApp.clear();
                     Titulo.clear();
@@ -107,7 +111,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
                         euAlugoModel = d.getValue(EuAlugoModel.class);
                         Nome.add(euAlugoModel.getNome());
                         Telefone.add(euAlugoModel.getTelefone());
-                        TipoDecontrato.add(euAlugoModel.getTipoDecontrato());
+                        TipodeContrato.add(euAlugoModel.getTipodeContrato());
                         Valor.add(euAlugoModel.getValor());
                         WhatsApp.add(euAlugoModel.getWhatsApp());
                         Titulo.add(euAlugoModel.getTitulo());
@@ -118,7 +122,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
 
                     recyclerView = root.findViewById(R.id.recicler_eualugo);
                     recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-                    adapter = new RecyclerAdapter_EuAlugo(getContext(), Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria);
+                    adapter = new RecyclerAdapter_EuAlugo(getContext(), Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -128,7 +132,31 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
                 }
             });
 
+        TenhoCasa = root.findViewById(R.id.btnQUEROANUNCIAR);
+        ConhecoQuemTenha = root.findViewById(R.id.btnoconhecoquemtem);
 
+        TenhoCasa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://forms.gle/NPBrSTwTykxWeveQ9";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
+        ConhecoQuemTenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+
+                String texto = "Oi. No app Acessa Restinga ( https://play.google.com/store/apps/details?id=com.joel.a0800restinga ) Você pode ajudar outras pessoas a alugar sua casa ou newgócio. Acesse a planilha https://forms.gle/NPBrSTwTykxWeveQ9 e preencha lá!";;
+                sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
+                sendIntent.setType("text/plain");
+                v.getContext().startActivity(sendIntent);
+            }
+        });
         return root;
     }
     public void onItemSelected(AdapterView<?> parent, final View view,
@@ -169,7 +197,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             Nome.clear();
             Telefone.clear();
-            TipoDecontrato.clear();
+            TipodeContrato.clear();
             Valor.clear();
             WhatsApp.clear();
             Titulo.clear();
@@ -181,7 +209,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
                 euAlugoModel = d.getValue(EuAlugoModel.class);
                 Nome.add(euAlugoModel.getNome());
                 Telefone.add(euAlugoModel.getTelefone());
-                TipoDecontrato.add(euAlugoModel.getTipoDecontrato());
+                TipodeContrato.add(euAlugoModel.getTipodeContrato());
                 Valor.add(euAlugoModel.getValor());
                 WhatsApp.add(euAlugoModel.getWhatsApp());
                 Titulo.add(euAlugoModel.getTitulo());
@@ -192,7 +220,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
 
             recyclerView = root.findViewById(R.id.recicler_eualugo);
             recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-            adapter = new RecyclerAdapter_EuAlugo(getContext(), Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria);
+            adapter = new RecyclerAdapter_EuAlugo(getContext(), Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria);
             recyclerView.setAdapter(adapter);
 
         }
