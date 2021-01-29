@@ -8,8 +8,18 @@
 
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/apresentacao3"
+        android:layout_below="@+id/apresentacao"
+        android:padding="8dp"
+        android:text="O App Acessa Restinga não se responsabiliza por doações ou contatos. Tudo que está presente aqui foi cadastrado pela tela administrativa com login efetuado!"
+        >
 
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/apresentacao3"
         android:id="@+id/recicler_estoudoando"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

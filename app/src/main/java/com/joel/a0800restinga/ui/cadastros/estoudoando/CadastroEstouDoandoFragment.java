@@ -134,7 +134,7 @@ public class CadastroEstouDoandoFragment extends Fragment implements AdapterView
             });
         }
 
-
+        cadastrar.setOnClickListener(this);
         return root;
 
     }
@@ -146,36 +146,42 @@ public class CadastroEstouDoandoFragment extends Fragment implements AdapterView
     @Override
     public void onClick(View v) {
         if (v == cadastrar){
+            if (Nome.getText().toString().isEmpty()){
+                Nome.setError("Nome não informado");
 
-            if (Descricao.getText().toString().isEmpty()){
-                Descricao.setError("Descritivo não informado");
             }else{
-                if (Nome.getText().toString().isEmpty()){
-                    Nome.setError("Nome não informado");
+                if (Descricao.getText().toString().isEmpty()){
+                    Descricao.setError("Descritivo não informado");
                 }else{
                     if (Telefone.getText().toString().isEmpty()) {
                         Telefone.setError("Telefone não informado");
                     }else {
 
-
                         String conteudo = Descricao.getText().toString();
-                        String nome = Nome.getText().toString();
-                        String telefone = Telefone.getText().toString();
-                        String whatsApp = "N";
-                        if (WhatsApp.isChecked())
-                            whatsApp = "S";
+                        if (conteudo.length() < 10){
 
-                        EstouDoandoModel user = new EstouDoandoModel(nome, telefone, whatsApp, Email, conteudo);
-                        String Id = nome.replaceAll("\\s+", "") + telefone.replaceAll("\\s+", "") + conteudo.substring(1,5).replaceAll("\\s+","");
-                        databaseReference.child(Id).setValue(user);
-                        Toast.makeText(v.getContext(), "Dados inseridos com sucesso", Toast.LENGTH_LONG).show();
-                        //myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
+                            Descricao.setError("Por favor, descreva melhor a sua doação!");
 
-                        this.Nome.setText("");
-                        this.Telefone.setText("");
-                        this.Descricao.setText("");
-                        this.WhatsApp.setChecked(false);
-                        hideSoftKeyboard();
+                        }else {
+                            String nome = Nome.getText().toString();
+                            String telefone = Telefone.getText().toString();
+                            String whatsApp = "N";
+                            if (WhatsApp.isChecked())
+                                whatsApp = "S";
+
+                            EstouDoandoModel user = new EstouDoandoModel(nome, telefone, whatsApp, Email, conteudo);
+
+                            String Id = nome.replaceAll("\\s+", "") + telefone.replaceAll("\\s+", "") + conteudo.substring(1, 5).replaceAll("\\s+", "");
+                            databaseReference.child(Id).setValue(user);
+                            Toast.makeText(v.getContext(), "Dados inseridos com sucesso", Toast.LENGTH_LONG).show();
+                            //myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
+
+                            this.Nome.setText("");
+                            this.Telefone.setText("");
+                            this.Descricao.setText("");
+                            this.WhatsApp.setChecked(false);
+                            hideSoftKeyboard();
+                        }
                     }
                 }
             }

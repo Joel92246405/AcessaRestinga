@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.MainActivity">
+    tools:context=".Activities.Telefones">
 <!--
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,7 +66,7 @@
 
         android:layout_marginTop="5sp"
         android:layout_below="@+id/spinner"
-        android:id="@+id/recicler"
+        android:id="@+id/recicler_telefones"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

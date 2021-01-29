@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    >
     <EditText
+        android:layout_marginTop="60dp"
         android:id="@+id/nome_doacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/telefone_eualugo"
-        android:layout_marginTop="1dp"
+
         android:hint="Nome"
         android:inputType="textMultiLine"
         android:selectAllOnFocus="true"
@@ -69,7 +70,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recicler_eualugo"
+        android:id="@+id/recicler_estoudoando"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

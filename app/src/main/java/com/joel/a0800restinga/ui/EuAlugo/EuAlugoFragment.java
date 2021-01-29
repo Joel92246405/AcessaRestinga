@@ -138,10 +138,13 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
         TenhoCasa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Faça o Login no aplicativo no Menu Lateral e preencha o cadastro", Toast.LENGTH_LONG).show();
+                /*
                 String url = "https://forms.gle/NPBrSTwTykxWeveQ9";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+                 */
             }
         });
 
@@ -150,8 +153,7 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
             public void onClick(View v) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-
-                String texto = "Oi. No app Acessa Restinga ( https://play.google.com/store/apps/details?id=com.joel.a0800restinga ) Você pode ajudar outras pessoas a alugar sua casa ou newgócio. Acesse a planilha https://forms.gle/NPBrSTwTykxWeveQ9 e preencha lá!";;
+                String texto = "Oi. No app Acessa Restinga ( https://play.google.com/store/apps/details?id=com.joel.a0800restinga ) Você pode ajudar outras pessoas a alugar sua casa ou newgócio. Acesse o App, Faça o Login no Menu Lateral e preencha o cadastro! É facil!!!";;
                 sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
                 sendIntent.setType("text/plain");
                 v.getContext().startActivity(sendIntent);

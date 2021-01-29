@@ -50,7 +50,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/apresentacao2"
         android:layout_below="@+id/apresentacao"
-        android:text="O App Acessa Restinga não se responsabiliza por alugueis ou valores e contatos. Tudo que está presente aqui foi cadastrado via formulário!"
+        android:padding="8dp"
+        android:text="O App Acessa Restinga não se responsabiliza por alugueis ou valores e contatos. Tudo que está presente aqui foi cadastrado pela tela administrativa com login efetuado!"
         >
 
     </TextView>

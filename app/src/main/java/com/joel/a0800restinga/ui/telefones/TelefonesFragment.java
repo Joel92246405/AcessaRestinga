@@ -78,7 +78,7 @@ public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telef
         whatsapp = new ArrayList<String>();
         arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_telefones, R.id.txtnomeeualugo, titulo);
 
-        root = inflater.inflate(R.layout.activity_main, container, false);
+        root = inflater.inflate(R.layout.activity_telefones, container, false);
 
         spinnerCategorias = (Spinner) root.findViewById(R.id.spinner);
         //imageButton = (ImageButton) root.findViewById(R.id.imageSearch);
@@ -118,10 +118,13 @@ public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telef
         QueroAnunciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://forms.gle/fGLLwaqu3uLVEWjW9";
+                Toast.makeText(v.getContext(), "Faça o Login no aplicativo no Menu Lateral e preencha o cadastro", Toast.LENGTH_LONG).show();
+                /*String url = "https://forms.gle/fGLLwaqu3uLVEWjW9";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);
+
+                 */
             }
         });
         return root;
@@ -178,7 +181,7 @@ public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telef
 
             }
 
-            recyclerView = root.findViewById(R.id.recicler);
+            recyclerView = root.findViewById(R.id.recicler_telefones);
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 

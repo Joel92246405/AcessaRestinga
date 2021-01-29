@@ -23,13 +23,20 @@
         android:layout_height="match_parent"
         android:padding="5dp"
         android:layout_marginTop="60dp"
-        android:background="@drawable/areaadm"
+
         >
+        <!--
+                android:background="@drawable/areaadm"
+                -->
 
 
 
-
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="Essa é a sua área administrativa. Navegue pelo menu abaixo!"
+    android:id="@+id/telainicial"></TextView>
 
     </LinearLayout>
 

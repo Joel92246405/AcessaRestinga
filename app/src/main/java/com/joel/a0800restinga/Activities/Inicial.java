@@ -183,6 +183,7 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
             @Override
             public void onClick(View view) {
                 mGoogleSignInClient.signOut();
+                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(Inicial.this,"Você está desconectado",Toast.LENGTH_SHORT).show();
                 controlaBotoes(1, "", "");
             }
@@ -363,6 +364,7 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
         }
         catch (ApiException e){
             Toast.makeText(Inicial.this,"Você está desconectado",Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
             controlaBotoes(1, "", "");
             FirebaseGoogleAuth(null);
         }

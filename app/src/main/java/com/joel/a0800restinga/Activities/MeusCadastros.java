@@ -35,7 +35,7 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setElevation(1);
-
+        textoinicial = (TextView) findViewById(R.id.telainicial);
 
 
         navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
@@ -74,10 +74,11 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser =firebaseAuth.getCurrentUser();
-        String Email = firebaseAuth.getCurrentUser().getEmail();
-        if (Email.equals("")){
+        if (currentUser == null){
             Toast.makeText(getApplicationContext(), "Você deve estar logado no aplicativo", Toast.LENGTH_LONG).show();
         }else {
+            String Email = firebaseAuth.getCurrentUser().getEmail();
+            textoinicial.setText("");
             switch (item.getItemId()) {
                 case R.id.navigation_telefones: {
                     getSupportActionBar().setTitle("Telefones");

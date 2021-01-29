@@ -33,7 +33,7 @@
         <activity android:name=".Activities.MeusCadastros" />
         <activity android:name=".Activities.TelaInicial" />
         <activity android:name=".Activities.EstouDoando" />
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.Telefones" />
         <activity android:name=".Activities.VoceSabia" />
         <activity android:name=".Activities.Informativos" />
         <activity android:name=".Activities.Leis" />

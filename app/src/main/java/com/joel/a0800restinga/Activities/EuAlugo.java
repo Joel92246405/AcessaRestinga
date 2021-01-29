@@ -29,57 +29,19 @@ public class EuAlugo extends AppCompatActivity implements com.joel.a0800restinga
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
-
-
-
-    ListView listView;
-    DatabaseReference databaseReference;
-    List<String> titulo, descricao;
-    ArrayAdapter<String> arrayAdapter;
-    EuAlugoModel euAlugoModel;
     RecyclerAdapter_EuAlugo adapter;
     Toolbar mTopToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eualugo);
 
-        /*titulo = new ArrayList<String>();
-        descricao = new ArrayList<String>();
-
-
         setSupportActionBar(mTopToolbar);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("eu_alugo");
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list, R.id.titulo_leis, titulo);
-*/
-
-
-        /*databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                titulo.clear();
-                descricao.clear();
-                for(DataSnapshot d : snapshot.getChildren()){
-                    leis = d.getValue(LeisModel.class);
-                    String texto =leis.getTitulo();
-                    titulo.add(String.valueOf(texto));
-                    descricao.add(leis.getDetalhe());
-                }
-
-                //RecyclerView recyclerView = findViewById(R.id.recicler_leis);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-*/
+        RecyclerView recyclerView = findViewById(R.id.recicler_eualugo);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerView.setAdapter(adapter);
 
     }
 

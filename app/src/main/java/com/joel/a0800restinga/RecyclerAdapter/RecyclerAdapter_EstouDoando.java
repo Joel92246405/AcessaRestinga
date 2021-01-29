@@ -94,10 +94,13 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
 
         String telefoneb = Telefone.get(position);
         String nome = Nome.get(position);
+        String conteudo = Conteudo.get(position);
 
         holder.telefone.setText(telefoneb);
         holder.nome.setText(nome);
         holder.telefone.setTag(position);
+        holder.conteudo.setText(conteudo);
+
         String What = Whatsapp.get(position);
 
         if (! mostrarLixeira){
@@ -114,19 +117,26 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
             }
         }
 
+
+
+
+
         holder.lixeira.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DatabaseReference databaseReference;
                 databaseReference = FirebaseDatabase.getInstance().getReference("estoudoando");
+
+
                 String Id = holder.nome.getText().toString().replaceAll("\\s+","") + holder.telefone.getText().toString().replaceAll("\\s+","") + holder.conteudo.getText().toString().substring(1,5).replaceAll("\\s+","");
+
+
                 databaseReference.child(Id).removeValue();
-
-
+                Toast.makeText(v.getContext(), "Registro excluido com sucesso", Toast.LENGTH_LONG).show();
 
             }
         });
-
 
         holder.ligar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +162,7 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
 
                     Boolean existeNaAgenda = false;
 
-                    ArrayList<ContentValues> data = new ArrayList<ContentValues>();
+
 
                     for (ContatosAgenda contatosAgenda : contacts) {
 
@@ -244,7 +254,7 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
         TextView conteudo;
         ImageView ligar;
         ImageView zapzap;
-        ImageView lixeira;
+        ImageView lixeira, lixeira2;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -258,14 +268,22 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
             ligar = itemView.findViewById(R.id.ligarestoudoando);
             zapzap = itemView.findViewById(R.id.zapzapestoudoando);
             lixeira = itemView.findViewById(R.id.excluirestoudoando);
+            lixeira2 = itemView.findViewById(R.id.excluirestoudoando);
 
+            lixeira2.setOnClickListener(this);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null)
+            if (mClickListener != null) {
                 mClickListener.onItemClick(getAdapterPosition());
+                Toast.makeText(view.getContext(), "clicou", Toast.LENGTH_LONG).show();
+            }
+
+            if (lixeira2 == view){
+                Toast.makeText(view.getContext(), "clicou2", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -278,10 +296,4 @@ public class RecyclerAdapter_EstouDoando extends RecyclerView.Adapter<RecyclerAd
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = (ItemClickListener) itemClickListener;
     }
-
-
-
-
-
-
 }

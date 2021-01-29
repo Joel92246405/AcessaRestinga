@@ -23,7 +23,7 @@ import com.joel.a0800restinga.Model.TelefonesModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
+public class Telefones extends AppCompatActivity  {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -42,45 +42,14 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        titulo = new ArrayList<String>();
-        item = new ArrayList<String>();
-        whatsapp= new ArrayList<String>();
+        setContentView(R.layout.activity_telefones);
 
 
         setSupportActionBar(mTopToolbar);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("telefones");
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item_telefones, R.id.txtnomeeualugo, titulo);
-
-
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                titulo.clear();
-                item.clear();
-                for(DataSnapshot d : snapshot.getChildren()){
-                    user = d.getValue(TelefonesModel.class);
-                    String texto =user.getTel();
-                    titulo.add(String.valueOf(texto));
-                    item.add(user.getEnd());
-                    whatsapp.add(user.getWhatsapp());
-
-                }
-
-                RecyclerView recyclerView = findViewById(R.id.recicler);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                //adapter = new RecyclerAdapter_Telefones(MainActivity.this, getBaseContext(), titulo, item, whatsapp, false);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        RecyclerView recyclerView = findViewById(R.id.recicler_telefones);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+        recyclerView.setAdapter(adapter);
 
 
     }

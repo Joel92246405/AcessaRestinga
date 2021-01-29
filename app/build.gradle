@@ -22,8 +22,8 @@ android {
         applicationId 'com.joel.a0800restinga'
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 15
-        versionName "1.2.2"
+        versionCode 16
+        versionName "1.2.6"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
