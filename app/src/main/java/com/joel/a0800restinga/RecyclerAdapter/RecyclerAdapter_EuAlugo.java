@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.joel.a0800restinga.R;
 
 import java.util.List;
@@ -27,22 +29,22 @@ import static com.joel.a0800restinga.Activities.Inicial.REQUEST_PERMISSIONS_CODE
 public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapter_EuAlugo.ViewHolder>{
 
     private List<String> Nome, Telefone, TipodeContrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
-
+    private boolean esconderLixeira;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    public RecyclerAdapter_EuAlugo(Context context, List<String> nome, List<String> telefone, List<String> tipoDeContrato, List<String> valor, List<String> whatsApp, List<String> titulo, List<String> ocultarValor, List<String> endereco, List<String> Categoria) {
+    public RecyclerAdapter_EuAlugo(Context context, List<String> nome, List<String> telefone,  List<String> valor, List<String> whatsApp, List<String> titulo, List<String> ocultarValor, List<String> endereco, List<String> Categoria, boolean esconderLixeira) {
         this.mInflater = LayoutInflater.from(context);
         this.Nome = nome;
         this.Telefone = telefone;
-        this.TipodeContrato = tipoDeContrato;
         this.Valor = valor;
         this.WhatsApp = whatsApp;
         this.Titulo = titulo;
         this.OcultarValor = ocultarValor;
         this.Endereco = endereco;
         this.Categoria = Categoria;
+        this.esconderLixeira = esconderLixeira;
     }
 
     // inflates the row layout from xml when needed
@@ -57,15 +59,21 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         final String Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, OcultarValor, Endereco, Categoria;
 
+        final String nome = this.Nome.get(position), telefone = this.Telefone.get(position);
+
         Nome = this.Nome.get(position);
         Telefone = this.Telefone.get(position);
-        TipoDecontrato = this.TipodeContrato.get(position);
+
         Valor = this.Valor.get(position);
         WhatsApp = this.WhatsApp.get(position);
         Titulo = this.Titulo.get(position);
         OcultarValor = this.OcultarValor.get(position);
         Endereco = this.Endereco.get(position);
-        Categoria = this.Categoria.get(position);
+
+
+        if (esconderLixeira){
+            holder.lixeira.setVisibility(View.INVISIBLE);
+        }
 
         final String maisinfo = "Nome: " + Nome + "\nEndereço: " + Endereco +" \nEntre em contato pela tela anterior";
 
@@ -80,6 +88,19 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
             holder.Valor.setText(Valor);
         }
 
+
+        holder.lixeira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference databaseReference;
+                databaseReference = FirebaseDatabase.getInstance().getReference("eu_alugo");
+                String Id = nome.replaceAll("\\s+","") + telefone.replaceAll("\\s+","");
+                databaseReference.child(Id).removeValue();
+
+
+
+            }
+        });
 
         holder.zap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +192,7 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
 
         TextView Nome, Telefone, TipoDecontrato, Valor, WhatsApp, Titulo, MaisInfo, Endereco;
         ImageView ligar, zap;
+        ImageView lixeira;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -183,7 +205,7 @@ public class RecyclerAdapter_EuAlugo extends RecyclerView.Adapter<RecyclerAdapte
             zap =  itemView.findViewById(R.id.zap_eualugo);
             MaisInfo = itemView.findViewById(R.id.eualugo_maisinfo);
             WhatsApp = itemView.findViewById(R.id.whatsapp_eualugo);
-
+            lixeira = itemView.findViewById(R.id.excluir_eualugo);
 
 
             itemView.setOnClickListener(this);

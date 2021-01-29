@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joel.a0800restinga.Model.InformativosModel;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Informativos;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InformativosFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
+public class InformativosFragment extends Fragment implements RecyclerAdapter_Informativos.ItemClickListener{
 
 
 

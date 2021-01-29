@@ -7,29 +7,32 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_prefeitura"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_prefeitura"
         android:supportsRtl="true"
-        android:theme="@style/Theme.0800Restinga">
-
+        android:theme="@style/Theme.0800Restinga"
+        android:name="androidx.multidex.MultiDexApplication" >
+        <activity android:name=".Activities.Login"></activity>
         <activity
             android:name=".Activities.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activities.Inicial"
-            android:theme="@style/Theme.0800Restinga.NoActionBar"/>
+        <activity
+            android:name=".Activities.Inicial"
+            android:theme="@style/Theme.0800Restinga.NoActionBar" />
         <activity android:name=".Activities.EuAlugo" />
+        <activity android:name=".Activities.MeusCadastros" />
         <activity android:name=".Activities.TelaInicial" />
+        <activity android:name=".Activities.EstouDoando" />
         <activity android:name=".Activities.MainActivity" />
         <activity android:name=".Activities.VoceSabia" />
         <activity android:name=".Activities.Informativos" />
@@ -38,28 +41,32 @@
 
         <service
             android:name=".Uteis.MyFirebaseMessagingService"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".Uteis.MyFirebaseInstanceIDService">
+        <service android:name=".Uteis.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-     See README(https://goo.gl/l4GJaQ) for more. -->
+        <!--
+ Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_menu_send" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!--
+ Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/lite_blue" />
+
         <receiver android:name=".Uteis.MyFirebaseMessagingService" />
     </application>
 

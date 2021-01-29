@@ -1,4 +1,4 @@
-package com.joel.a0800restinga.ui.lastnews;
+package com.joel.a0800restinga.ui.estoudoando;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,55 +15,45 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.joel.a0800restinga.Model.LastNewsModel;
-import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Leis;
-import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
-import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_LastNews;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.joel.a0800restinga.Model.EstouDoandoModel;
+import com.joel.a0800restinga.R;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_EstouDoando;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class LastNewsFragment extends Fragment implements RecyclerAdapter_Leis.ItemClickListener{
+public class EstouDoandoFragment extends Fragment{
 
+    DatabaseReference databaseReference;
+    List<String> nome, conteudo, email, telefone, whatsapp;
 
-
+    EstouDoandoModel estouDoandoModel;
+    TextView Nome, Conteudo, Telefone;
+    RecyclerAdapter_EstouDoando adapter;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-
-    private ImageButton back;
-
-    ListView listView;
-    DatabaseReference databaseReference;
-    List<String> titulo, item, link;
-
-    ArrayAdapter<String> arrayAdapter;
-    LastNewsModel lastNewsModel;
-    RecyclerAdapter_LastNews adapter;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        titulo = new ArrayList<String>();
-        item = new ArrayList<String>();
-        link = new ArrayList<String>();
-
-
 
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        databaseReference = FirebaseDatabase.getInstance().getReference("last_news");
-        arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_lastnews, R.id.titulo_lastnews, titulo);
+        databaseReference = FirebaseDatabase.getInstance().getReference("estoudoando");
 
+        nome = new ArrayList<String>();
+        conteudo = new ArrayList<String>();
+        email = new ArrayList<String>();
+        telefone = new ArrayList<String>();
+        whatsapp = new ArrayList<String>();
 
-
-        final View root = inflater.inflate(R.layout.activity_lastnews, container, false);
+        final View root = inflater.inflate(R.layout.activity_estoudoando, container, false);
 
         ConnectivityManager cm =
                 (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -77,24 +65,28 @@ public class LastNewsFragment extends Fragment implements RecyclerAdapter_Leis.I
         if (! isConnected) {
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }
-        try {
+
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    titulo.clear();
-                    item.clear();
-                    for (DataSnapshot d : snapshot.getChildren()) {
-                        lastNewsModel = d.getValue(LastNewsModel.class);
-                        String texto = lastNewsModel.getTitulo();
-                        titulo.add(String.valueOf(texto));
-                        item.add(lastNewsModel.getDetalhe());
-                        link.add(lastNewsModel.getLink());
+                    nome.clear();
+                    conteudo.clear();
+                    email.clear();
+                    telefone.clear();
+                    whatsapp.clear();
 
+                    for (DataSnapshot d : snapshot.getChildren()) {
+                        estouDoandoModel = d.getValue(EstouDoandoModel.class);
+                        nome.add(estouDoandoModel.getNome());
+                        conteudo.add(estouDoandoModel.getConteudo());
+                        email.add(estouDoandoModel.getEmail());
+                        telefone.add(estouDoandoModel.getTelefone());
+                        whatsapp.add(estouDoandoModel.getWhatsapp());
                     }
 
-                    recyclerView = root.findViewById(R.id.recicler_lastnews);
+                    recyclerView = root.findViewById(R.id.recicler_estoudoando);
                     recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-                    adapter = new RecyclerAdapter_LastNews(getContext(), titulo, item, link);
+                    adapter = new RecyclerAdapter_EstouDoando(getContext(), nome, conteudo, telefone, whatsapp, false);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -103,16 +95,15 @@ public class LastNewsFragment extends Fragment implements RecyclerAdapter_Leis.I
 
                 }
             });
-        }catch (Exception e){
 
-            e.printStackTrace();
-        }
 
         return root;
     }
-
+/*
     @Override
     public void onItemClick(int position) {
 
     }
+
+ */
 }

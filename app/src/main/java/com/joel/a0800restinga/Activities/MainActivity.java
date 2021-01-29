@@ -17,13 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
-import com.joel.a0800restinga.Model.Users;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
+import com.joel.a0800restinga.Model.TelefonesModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class MainActivity extends AppCompatActivity  {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     DatabaseReference databaseReference;
     List<String> titulo, item, whatsapp;
     ArrayAdapter<String> arrayAdapter;
-    Users user;
-    MyRecyclerViewAdapter adapter;
+    TelefonesModel user;
+    RecyclerAdapter_Telefones adapter;
     Toolbar mTopToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
         setSupportActionBar(mTopToolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("telefones");
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list, R.id.txtnome, titulo);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item_telefones, R.id.txtnomeeualugo, titulo);
 
 
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
                 titulo.clear();
                 item.clear();
                 for(DataSnapshot d : snapshot.getChildren()){
-                    user = d.getValue(Users.class);
+                    user = d.getValue(TelefonesModel.class);
                     String texto =user.getTel();
                     titulo.add(String.valueOf(texto));
                     item.add(user.getEnd());
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
 
                 RecyclerView recyclerView = findViewById(R.id.recicler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                adapter = new MyRecyclerViewAdapter(MainActivity.this, getBaseContext(), titulo, item, whatsapp);
+                //adapter = new RecyclerAdapter_Telefones(MainActivity.this, getBaseContext(), titulo, item, whatsapp, false);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -91,9 +91,11 @@ public class MainActivity extends AppCompatActivity implements MyRecyclerViewAda
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
+/*
     @Override
     public void onItemClick(int position) {
         //Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
+
+ */
 }

@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.Query;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.Model.Users;
+import com.joel.a0800restinga.Model.TelefonesModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener, AdapterView.OnItemSelectedListener{
+public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telefones.ItemClickListener, AdapterView.OnItemSelectedListener{
 
 
 
@@ -52,11 +52,23 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
     DatabaseReference databaseReference;
     List<String> titulo, item, whatsapp;
     ArrayAdapter<String> arrayAdapter;
-    Users user;
-    MyRecyclerViewAdapter adapter;
+    TelefonesModel user;
+    RecyclerAdapter_Telefones adapter;
     Spinner spinnerCategorias;
     private View root;
     Button QueroAnunciar;
+
+    public static TelefonesFragment newInstance(int num) {
+        TelefonesFragment f = new TelefonesFragment();
+
+        // Supply num input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("num", num);
+        f.setArguments(args);
+
+        return f;
+    }
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +76,7 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
         titulo = new ArrayList<String>();
         item = new ArrayList<String>();
         whatsapp = new ArrayList<String>();
-        arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.list, R.id.txtnome, titulo);
+        arrayAdapter = new ArrayAdapter<String>(getContext(), R.layout.item_telefones, R.id.txtnomeeualugo, titulo);
 
         root = inflater.inflate(R.layout.activity_main, container, false);
 
@@ -155,12 +167,14 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             titulo.clear();
             item.clear();
             whatsapp.clear();
+
             for (DataSnapshot d : snapshot.getChildren()) {
-                user = d.getValue(Users.class);
+                user = d.getValue(TelefonesModel.class);
                 String texto = user.getTel();
                 titulo.add(String.valueOf(texto));
                 item.add(user.getEnd());
                 whatsapp.add(user.getWhatsapp());
+                TelefonesModel model = new TelefonesModel(texto, user.getEnd(), user.getWhatsapp(), "", "");
 
             }
 
@@ -169,7 +183,7 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
             recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
 
-            adapter = new MyRecyclerViewAdapter(null, getContext(), titulo, item, whatsapp);
+            adapter = new RecyclerAdapter_Telefones(null, getContext(), titulo, item, whatsapp, false);
             recyclerView.setAdapter(adapter);
         }
 
@@ -194,8 +208,10 @@ public class GalleryFragment extends Fragment implements MyRecyclerViewAdapter.I
 
     }
 
+
+
     @Override
     public void onItemClick(int position) {
-
+        Toast.makeText(root.getContext(), position, Toast.LENGTH_LONG).show();
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <EditText
+        android:id="@+id/nome_doacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/telefone_eualugo"
+        android:layout_marginTop="1dp"
+        android:hint="Nome"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="true"
+        android:singleLine="true">
+
+    </EditText>
+    <EditText
+        android:id="@+id/descritivo_doacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/telefone_eualugo"
+        android:layout_marginTop="1dp"
+        android:hint="Descreva Sua Doação"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="true"
+        android:lines="5"
+        android:maxLines="5"
+        android:singleLine="true">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/telefone_doacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descritivo_doacao"
+        android:layout_marginTop="1dp"
+        android:hint="Telefone"
+        android:inputType="phone"
+        android:phoneNumber="false"
+        android:selectAllOnFocus="false"
+        android:singleLine="true">
+
+    </EditText>
+
+    <Switch
+        android:id="@+id/possuiWhatsapp_doacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descritivo_doacao"
+        android:layout_marginTop="-1dp"
+        android:text="Possui WhatsApp" />
+
+
+
+
+    <Button
+
+        android:id="@+id/cadastrarestoudoando"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="confirmar">
+
+    </Button>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recicler_eualugo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+</LinearLayout>

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.lastnews.LastNewsFragment">
+    tools:context=".Activities.MeusCadastros">
 
     <TextView
-        android:id="@+id/textlastnews"
+        android:id="@+id/text_covid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

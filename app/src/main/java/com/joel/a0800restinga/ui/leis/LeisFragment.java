@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.joel.a0800restinga.Model.LeisModel;
 
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Leis;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LeisFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class LeisFragment extends Fragment implements RecyclerAdapter_Leis.ItemClickListener {
 
 
     private RecyclerView recyclerView;

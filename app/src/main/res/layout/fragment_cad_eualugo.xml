@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_height="330dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/camposdecadastro">
+
+        <EditText
+
+            android:id="@+id/titulo_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Titulo do anuncio"
+            android:inputType="textPersonName">
+
+        </EditText>
+
+        <EditText
+
+            android:id="@+id/nome_eualugo"
+            android:layout_below="@+id/titulo_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:inputType="textPersonName">
+
+        </EditText>
+
+        <EditText
+
+            android:id="@+id/endereco_eualugo"
+            android:layout_below="@+id/nome_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Endereço"
+            android:inputType="textPersonName">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/telefone_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/endereco_eualugo"
+            android:layout_marginTop="1dp"
+            android:hint="Telefone"
+            android:inputType="phone"
+            android:phoneNumber="false"
+            android:selectAllOnFocus="false"
+            android:singleLine="true">
+
+        </EditText>
+
+        <Switch
+            android:id="@+id/possuiWhatsapp_eualugo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/endereco_eualugo"
+            android:layout_alignRight="@+id/telefone_eualugo"
+            android:layout_marginTop="-1dp"
+            android:text="Possui WhatsApp" />
+
+        <EditText
+            android:id="@+id/valor_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telefone_eualugo"
+            android:layout_marginTop="1dp"
+            android:hint="Valor"
+            android:inputType="numberDecimal"
+            android:phoneNumber="false"
+            android:selectAllOnFocus="false"
+            android:singleLine="true">
+
+        </EditText>
+
+        <Switch
+            android:id="@+id/ocultarvalor_eualugo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telefone_eualugo"
+            android:layout_alignRight="@+id/valor_eualugo"
+            android:layout_marginTop="-1dp"
+            android:text="Ocultar Valor" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tooltipText="Categorias"
+
+            android:id="@+id/categoria_eualugo"
+            android:layout_below="@+id/valor_eualugo"
+            >
+
+        </Spinner>
+
+
+
+
+        <Button
+            android:layout_below="@+id/categoria_eualugo"
+            android:id="@+id/cadastrartelefone"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="confirmar">
+
+        </Button>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/camposdecadastro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicler_eualugo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

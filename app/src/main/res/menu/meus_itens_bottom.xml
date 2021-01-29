@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/navigation_telefones"
+            android:icon="@mipmap/ic_meus_telefones"
+            android:title="Meus Telefones"/>
+
+        <item
+            android:id="@+id/navigation_eualugo"
+            android:icon="@mipmap/ic_aluguel"
+            android:title="Eu Alugo"/>
+
+        <item
+            android:id="@+id/navigation_estoudoando"
+            android:icon="@mipmap/ic_doacao"
+            android:title="Estou Doando"/>
+
+    </menu>

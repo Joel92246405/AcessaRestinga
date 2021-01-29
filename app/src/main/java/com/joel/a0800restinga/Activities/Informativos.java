@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +18,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Informativos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Informativos extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class Informativos extends AppCompatActivity implements RecyclerAdapter_Informativos.ItemClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -53,7 +52,7 @@ public class Informativos extends AppCompatActivity implements MyRecyclerViewAda
         setSupportActionBar(mTopToolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("informativos");
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list, R.id.titulo_informativos, titulo);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item_telefones, R.id.titulo_informativos, titulo);
 
 
 

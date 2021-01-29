@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
+        android:layout_height="220dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:id="@+id/camposdecadastro">
+
+        <EditText
+
+            android:id="@+id/nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:inputType="textPersonName">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/telefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nome"
+            android:hint="Telefone"
+            android:inputType="phone"
+            android:phoneNumber="false"
+            android:selectAllOnFocus="false"
+            android:singleLine="true">
+
+        </EditText>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:tooltipText="Categorias"
+
+            android:id="@+id/categoria"
+            android:layout_below="@+id/telefone"
+            >
+
+        </Spinner>
+        <Switch
+            android:layout_below="@+id/categoria"
+            android:id="@+id/possuiWhatsapp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Possui WhatsApp" />
+
+            <Button
+                android:layout_below="@+id/possuiWhatsapp"
+                android:id="@+id/cadastrartelefone"
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="confirmar">
+
+            </Button>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@+id/camposdecadastro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicler_lastnews"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

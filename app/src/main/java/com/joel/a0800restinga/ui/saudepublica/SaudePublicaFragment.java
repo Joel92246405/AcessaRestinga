@@ -20,13 +20,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.Model.SaudePublicaModel;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaudePublicaFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
+public class SaudePublicaFragment extends Fragment{
 
 
 
@@ -94,9 +94,11 @@ public class SaudePublicaFragment extends Fragment implements MyRecyclerViewAdap
 
         return root;
     }
-
+/*
     @Override
     public void onItemClick(int position) {
 
     }
+
+ */
 }

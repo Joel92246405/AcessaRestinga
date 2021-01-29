@@ -1,8 +1,11 @@
 package com.joel.a0800restinga.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -11,7 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.Model.Carrossel;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.Uteis.BancoController;
-import com.onesignal.OneSignal;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,20 +35,40 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
 
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApplicationId("telefones-c6ce7")
+                .setApiKey("AIzaSyDmLNH8ce7hgXgZypIHHm2zHlPJ4IMQxfY")
+                .setDatabaseUrl("https://telefones-c6ce7.firebaseio.com")
+                .setStorageBucket("telefones-c6ce7.appspot.com")
+                .setGcmSenderId("683025115177").build();
+        FirebaseApp.initializeApp(this, options);
 
         try{
+
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
             DatabaseReference telefones = FirebaseDatabase.getInstance().getReference("telefones");
+
             DatabaseReference eu_alugo = FirebaseDatabase.getInstance().getReference("eu_alugo");
+
             DatabaseReference eventos = FirebaseDatabase.getInstance().getReference("eventos");
+
             DatabaseReference informativos = FirebaseDatabase.getInstance().getReference("informativos");
+
             DatabaseReference last_news = FirebaseDatabase.getInstance().getReference("last_news");
+
             DatabaseReference organica = FirebaseDatabase.getInstance().getReference("organica");
+
             DatabaseReference vcsabia = FirebaseDatabase.getInstance().getReference("vcsabia");
+
             DatabaseReference carrossel = FirebaseDatabase.getInstance().getReference("carrossel");
+
             DatabaseReference saudepublica = FirebaseDatabase.getInstance().getReference("saudepublica");
 
+            DatabaseReference estoudoando = FirebaseDatabase.getInstance().getReference("estoudoando");
+
             telefones.keepSynced(true);
+            estoudoando.keepSynced(true);
             carrossel.keepSynced(true);
             eu_alugo.keepSynced(true);
             eventos.keepSynced(true);

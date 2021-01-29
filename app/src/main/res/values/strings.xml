@@ -12,10 +12,15 @@
     <string name="title_activity_main__tela_inicial">MainActivity_TelaInicial</string>
 
     <string name="link">NOMEDOAPLICATIVO</string>
+
+
+
+
+
     <string name="LINKDEEXEMPLO">
         <a href="http://google.com">Desenvolvido por: INSERIRTEXTO</a>
     </string>
-
+    <string name="TOKENGOOGLE">683025115177-iammiiauaf9avj4n1ldq3ahm9hiiagrv.apps.googleusercontent.com</string>
     &lt;/resources>
     <string-array name="navigation_drawer_items_array">
         <item>Connect</item>

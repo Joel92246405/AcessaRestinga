@@ -21,14 +21,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.Model.CovidModel;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Covid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CovidFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
+public class CovidFragment extends Fragment implements RecyclerAdapter_Covid.ItemClickListener{
 
 
 

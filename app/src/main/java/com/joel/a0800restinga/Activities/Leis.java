@@ -17,13 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Informativos;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Leis;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Leis extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class Leis extends AppCompatActivity implements RecyclerAdapter_Informativos.ItemClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -51,7 +52,7 @@ public class Leis extends AppCompatActivity implements MyRecyclerViewAdapter.Ite
         setSupportActionBar(mTopToolbar);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("leis");
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.list, R.id.titulo_leis, titulo);
+        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item_telefones, R.id.titulo_leis, titulo);
 
 
 

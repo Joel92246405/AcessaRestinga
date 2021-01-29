@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +18,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joel.a0800restinga.Model.VoceSabiaModel;
 import com.joel.a0800restinga.R;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Informativos;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_VcSabia;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VoceSabia extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener {
+public class VoceSabia extends AppCompatActivity implements RecyclerAdapter_Informativos.ItemClickListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;

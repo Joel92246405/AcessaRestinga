@@ -16,6 +16,8 @@ android:padding="10dp">
     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
     android:text="Titulo"/>
 
+
+
     <TextView
         android:id="@+id/eualugo_nome"
         android:layout_width="wrap_content"
@@ -51,7 +53,7 @@ android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/linearLayoutEuAlugo"
-        android:layout_width="100dp"
+        android:layout_width="150dp"
         android:layout_height="25dp"
         android:layout_below="@+id/eualugo_endereco"
 
@@ -73,7 +75,16 @@ android:padding="10dp">
             android:layout_width="wrap_content"
             android:src="@mipmap/ic_zap">
 
+
         </ImageView>
+
+        <ImageView
+            android:id="@+id/excluir_eualugo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:src="@mipmap/ic_apagar" />
+
     </LinearLayout>
 
     <TextView
@@ -110,6 +121,8 @@ android:padding="10dp">
         android:textSize="15dp"
         android:textColor="@color/lite_blue"
         android:visibility="invisible"/>
+
+
     <View
         android:id="@+id/view"
         android:layout_below="@+id/eualugo_maisinfo"

@@ -23,28 +23,39 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.joel.a0800restinga.Model.ContatosAgenda;
+import com.joel.a0800restinga.Model.TelefonesModel;
 import com.joel.a0800restinga.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder>{
+public class RecyclerAdapter_Telefones extends RecyclerView.Adapter<RecyclerAdapter_Telefones.ViewHolder>{
 
     private List<String> Telefone, Whatsapp;
     private List<String> Nome;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private List<TelefonesModel> telefonesModel;
     public static final int REQUEST_PERMISSIONS_CODE = 128;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private Context ctx;
+    private boolean mostrarLixeira;
+    public ArrayList<ContatosAgenda> contacts = new ArrayList<ContatosAgenda>();
+    private AlertDialog alerta;
+    private static ItemClickListener itemClickListener;
 
-    public MyRecyclerViewAdapter(Activity activity, Context context, List<String> data, List<String> nome, List<String> whatsapp) {
+    public RecyclerAdapter_Telefones(Activity activity, Context context, List<String> telefone, List<String> nome, List<String> whatsapp, boolean MostrarLixeira) {
+
         this.mInflater = LayoutInflater.from(context);
-        this.Telefone = data;
+        this.Telefone = telefone;
         this.Nome = nome;
         this.Whatsapp = whatsapp;
         this.ctx = context;
+        this.mostrarLixeira = MostrarLixeira;
+
 
         if ( !(ContextCompat.checkSelfPermission( context, Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ) ){
             getContactNames(context);
@@ -53,7 +64,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
 
     }
-    public ArrayList<ContatosAgenda> contacts = new ArrayList<ContatosAgenda>();
+
     private void getContactNames(Context ctx) {
 
         // Get the ContentResolver
@@ -75,14 +86,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.list, parent, false);
+        View view = mInflater.inflate(R.layout.item_telefones, parent, false);
         return new ViewHolder(view);
     }
 
-
     // binds the data to the TextView in each row
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
         String telefoneb = Telefone.get(position);
         String nome = Nome.get(position);
@@ -93,6 +103,9 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.telefone.setTag(position);
         String What = Whatsapp.get(position);
 
+        if (! mostrarLixeira){
+            holder.lixeira.setVisibility(View.INVISIBLE);
+        }
 
         if ( (ContextCompat.checkSelfPermission( ctx, Manifest.permission.READ_CONTACTS ) != PackageManager.PERMISSION_GRANTED ) ){
             holder.zapzap.setVisibility(View.INVISIBLE);
@@ -104,6 +117,18 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
             }
         }
 
+        holder.lixeira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference databaseReference;
+                databaseReference = FirebaseDatabase.getInstance().getReference("telefones");
+                String Id = holder.nome.getText().toString().replaceAll("\\s+","") + holder.telefone.getText().toString().replaceAll("\\s+","");
+                databaseReference.child(Id).removeValue();
+
+
+
+            }
+        });
 
         holder.compartilhar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,8 +207,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     }
 
-    private AlertDialog alerta;
-
     private void verificaSeDesejaCadastrar(final Context ctx, final String telefone, final String nome) {
         //Cria o gerador do AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
@@ -220,8 +243,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         return Telefone.size();
     }
 
-    private static ItemClickListener itemClickListener;
-
     public void setOnItemClickListener(ItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
     }
@@ -231,7 +252,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         void onItemClick(int position);
     }
 
-
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView nome;
@@ -240,25 +260,21 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         ImageView ligar;
         ImageView zapzap;
         ImageView compartilhar;
+        ImageView lixeira;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             Typeface tpNome = Typeface.createFromAsset(itemView.getContext().getAssets(), "LibreBaskerville-Regular.ttf");
-            //Typeface tpTelefone = Typeface.createFromAsset(itemView.getContext().getAssets(), "LibreBaskerville-Regular.ttf");
-            //textView.setTypeface(tp);
 
-            nome = itemView.findViewById(R.id.txtnome);
+            nome = itemView.findViewById(R.id.txtnomeeualugo);
             nome.setTypeface(tpNome);
-            telefone = itemView.findViewById(R.id.Telefone);
+            telefone = itemView.findViewById(R.id.txttelefoneeualugo);
             compartilhar = itemView.findViewById(R.id.share);
             ligar = itemView.findViewById(R.id.ligar);
             zapzap = itemView.findViewById(R.id.zapzap);
             whatsapp_telefone = itemView.findViewById(R.id.whatsapp_telefone);
-
-
-
-
+            lixeira = itemView.findViewById(R.id.excluir);
 
             itemView.setOnClickListener(this);
         }
@@ -279,5 +295,10 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = (ItemClickListener) itemClickListener;
     }
+
+
+
+
+
 
 }

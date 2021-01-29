@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class TelaInicial extends AppCompatActivity {
 
@@ -40,7 +41,9 @@ public class TelaInicial extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        setupToolbar();
+
+
+        //setupToolbar();
 
 
 
@@ -58,7 +61,7 @@ public class TelaInicial extends AppCompatActivity {
     private void selectItem(int position) {
 
         Fragment fragment = null;
-
+        Toast.makeText(this, position, Toast.LENGTH_LONG).show();
         switch (position) {
             case 0:
                 //fragment = new ConnectFragment();
@@ -74,18 +77,7 @@ public class TelaInicial extends AppCompatActivity {
                 break;
         }
 
-        if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(mNavigationDrawerItemTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
-
-        } else {
-            Log.e("MainActivity", "Error in creating fragment");
-        }
     }
 
     @Override

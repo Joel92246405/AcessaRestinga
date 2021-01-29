@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.joel.a0800restinga.Model.EventosModel;
-import com.joel.a0800restinga.RecyclerAdapter.MyRecyclerViewAdapter;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Eventos;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener{
+public class EventFragment extends Fragment implements RecyclerAdapter_Eventos.ItemClickListener{
 
 
 
