@@ -1,6 +1,7 @@
 package com.joel.a0800restinga.ui.estoudoando;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -15,12 +16,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.joel.a0800restinga.Activities.MeusCadastros;
 import com.joel.a0800restinga.Model.EstouDoandoModel;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_EstouDoando;
@@ -54,6 +58,21 @@ public class EstouDoandoFragment extends Fragment{
         whatsapp = new ArrayList<String>();
 
         final View root = inflater.inflate(R.layout.activity_estoudoando, container, false);
+
+        FloatingActionButton fab = root.findViewById(R.id.fab_EstouDoando);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Acesse o Menu Meus Cadastros para inserir a sua doação!", Snackbar.LENGTH_LONG)
+                        .setAction("IR AGORA", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent meusCadastros = new Intent(v.getContext(), MeusCadastros.class);
+                                startActivity(meusCadastros);
+                            }
+                        }).show();
+            }
+        });
 
         ConnectivityManager cm =
                 (ConnectivityManager)getContext().getSystemService(Context.CONNECTIVITY_SERVICE);

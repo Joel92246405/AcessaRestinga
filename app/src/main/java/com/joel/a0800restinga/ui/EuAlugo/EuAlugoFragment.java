@@ -1,6 +1,8 @@
 package com.joel.a0800restinga.ui.EuAlugo;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -20,6 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import com.joel.a0800restinga.Activities.MeusCadastros;
 import com.joel.a0800restinga.Model.EuAlugoModel;
 
 
@@ -75,6 +81,22 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
 
 
         root = inflater.inflate(R.layout.activity_eualugo, container, false);
+
+        FloatingActionButton fab = root.findViewById(R.id.fab_EuAlugo);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Acesse o Menu Meus Cadastros para inserir o que você aluga!", Snackbar.LENGTH_LONG)
+                        .setAction("IR AGORA", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent meusCadastros = new Intent(v.getContext(), MeusCadastros.class);
+                                startActivity(meusCadastros);
+                            }
+                        }).show();
+            }
+        });
+
         spinner = (Spinner) root.findViewById(R.id.spinner_eualugo);
 
         spinner.setOnItemSelectedListener(this);
@@ -132,34 +154,23 @@ public class EuAlugoFragment extends Fragment implements RecyclerAdapter_EuAlugo
                 }
             });
 
-        TenhoCasa = root.findViewById(R.id.btnQUEROANUNCIAR);
-        ConhecoQuemTenha = root.findViewById(R.id.btnoconhecoquemtem);
 
-        TenhoCasa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Faça o Login no aplicativo no Menu Lateral e preencha o cadastro", Toast.LENGTH_LONG).show();
-                /*
-                String url = "https://forms.gle/NPBrSTwTykxWeveQ9";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-                 */
-            }
-        });
-
-        ConhecoQuemTenha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                String texto = "Oi. No app Acessa Restinga ( https://play.google.com/store/apps/details?id=com.joel.a0800restinga ) Você pode ajudar outras pessoas a alugar sua casa ou newgócio. Acesse o App, Faça o Login no Menu Lateral e preencha o cadastro! É facil!!!";;
-                sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
-                sendIntent.setType("text/plain");
-                v.getContext().startActivity(sendIntent);
-            }
-        });
         return root;
+    }
+
+    private void callDialog(Context ctx,
+                            String message, String titulo){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setMessage(message)
+                .setTitle(titulo);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
     public void onItemSelected(AdapterView<?> parent, final View view,
                                int pos, long id) {

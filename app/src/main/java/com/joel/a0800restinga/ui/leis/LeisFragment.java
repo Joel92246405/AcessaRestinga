@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.joel.a0800restinga.Model.LeisModel;
 
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
@@ -62,21 +64,29 @@ public class LeisFragment extends Fragment implements RecyclerAdapter_Leis.ItemC
 
 
         final View root = inflater.inflate(R.layout.activity_leis, container, false);
-        btn = (Button)  root.findViewById(R.id.ButtonEmailCamara);
-        btn.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = root.findViewById(R.id.fab_legislativo);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent email = new Intent(Intent.ACTION_SEND);
-                email.setData(Uri.parse("mailto"));
-                email.setType("message/rfc822");
-                email.putExtra(Intent.EXTRA_EMAIL,
-                        new String[]{"admin@camararestinga.sp.gov.br"});
-                email.putExtra(Intent.EXTRA_SUBJECT,
-                        "");
-                email.putExtra(Intent.EXTRA_TEXT, "");
-                startActivity(Intent.createChooser(email, "ENVIAR E-MAIL"));
+            public void onClick(View view) {
+                Snackbar.make(view, "Envie seu e-mail para a Câmara Municipal de Restinga!", Snackbar.LENGTH_LONG)
+                        .setAction("ENVIAR AGORA", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent email = new Intent(Intent.ACTION_SEND);
+                                email.setData(Uri.parse("mailto"));
+                                email.setType("message/rfc822");
+                                email.putExtra(Intent.EXTRA_EMAIL,
+                                        new String[]{"admin@camararestinga.sp.gov.br"});
+                                email.putExtra(Intent.EXTRA_SUBJECT,
+                                        "");
+                                email.putExtra(Intent.EXTRA_TEXT, "");
+                                startActivity(Intent.createChooser(email, "ENVIAR E-MAIL"));
+                            }
+                        }).show();
             }
         });
+
+
 
         mPDFView = (PDFView)  root.findViewById(R.id.pdfView);
         mPDFView.fromAsset("lei.pdf")

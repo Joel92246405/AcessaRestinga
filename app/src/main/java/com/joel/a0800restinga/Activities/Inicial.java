@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,10 +47,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import me.drakeet.materialdialog.MaterialDialog;
 
 //import static com.joel.a0800restinga.MyRecyclerViewAdapter.REQUEST_PERMISSIONS_CODE;
@@ -60,10 +54,12 @@ import me.drakeet.materialdialog.MaterialDialog;
 public class Inicial extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
         /*implements NavigationView.OnNavigationItemSelectedListener*/{
 
+    public static final String SP_KEY_EMAIL = "";
+    public static final String SP_NAME = "";
     private AppBarConfiguration mAppBarConfiguration;
     public static final int REQUEST_PERMISSIONS_CODE = 128;
     private View headerView;
-    private TextView textTitulo, textDescricao;
+
 
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -72,12 +68,12 @@ public class Inicial extends AppCompatActivity implements NavigationView.OnNavig
     private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
 
-    private ImageView SignOut, SignIn;
-    private TextView Entrar, Sair;
+    private ImageView imagemLogin;
+    private TextView tSair, textNome;
     private int RC_SIGN_IN = 1;
     private Uri Photo;
     private ImageView imageView;
-
+    private boolean cadastrado;
 
 
 
@@ -86,36 +82,13 @@ public class Inicial extends AppCompatActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Envie sua sugestão / solicitação para o meu email", Snackbar.LENGTH_LONG)
-                        .setAction("Enviar", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent email = new Intent(Intent.ACTION_SEND);
-                                email.setData(Uri.parse("mailto"));
-                                email.setType("message/rfc822");
-                                email.putExtra(Intent.EXTRA_EMAIL,
-                                        new String[]{"joelmnascimento88@gmail.com"});
-                                email.putExtra(Intent.EXTRA_SUBJECT,
-                                        "Sugestão: ");
-                                email.putExtra(Intent.EXTRA_TEXT, "Olá " + "");
-                                startActivity(Intent.createChooser(email, "ENVIAR E-MAIL"));
-                            }
-                        }).show();
-            }
-        });
 
-        /*
-        expandableListView = findViewById(R.id.expandableListView);
 
-        prepareMenuData();
-        populateExpandableList();
-*/
+
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -128,7 +101,7 @@ public class Inicial extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
 mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_meus_cadastros, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_informativo, R.id.nav_estoudoando, R.id.nav_eualugo, R.id.nav_leis, R.id.navsaude)
+                R.id.nav_home, R.id.nav_meus_cadastros, R.id.nav_telefones, R.id.nav_vocesabia, R.id.nav_transporte, R.id.nav_estoudoando, R.id.nav_eualugo, R.id.nav_leis, R.id.navsaude)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -139,55 +112,31 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
 
 
 
-        textTitulo = (TextView) headerView.findViewById(R.id.texttitulo);
-        textDescricao = (TextView) headerView.findViewById(R.id.textDescricao);
-
-        SignIn = headerView.findViewById(R.id.efetuarLogin);
-        SignOut = headerView.findViewById(R.id.desconectar);
-        Entrar = headerView.findViewById(R.id.txtLogin);
-        Sair = headerView.findViewById(R.id.txtdesconectar);
+        tSair = headerView.findViewById(R.id.textSair);
+        textNome = headerView.findViewById(R.id.textDescricao);
+        FirebaseApp.initializeApp(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser =firebaseAuth.getCurrentUser();
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.TOKENGOOGLE))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        tSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signOut();
+                controlaBotoes(1, "", "");
+            }
+        });
 
         if(currentUser == null)
         {
-            //Usuário não está logado
             controlaBotoes(1, "", "");
         }
         else
         {
-            String Nome = currentUser.getDisplayName();// firebaseAuth.getCurrentUser().getDisplayName();
-            String Email = firebaseAuth.getCurrentUser().getEmail();
-            //Usuário está logado
-            controlaBotoes(0, Nome, Email);
-
-
+            String Nome = currentUser.getEmail();
+            controlaBotoes(0, Nome, "");
         }
 
-        SignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
 
-        SignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mGoogleSignInClient.signOut();
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(Inicial.this,"Você está desconectado",Toast.LENGTH_SHORT).show();
-                controlaBotoes(1, "", "");
-            }
-        });
 
 
 
@@ -239,13 +188,6 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
             startActivity(setIntent);
         }
 
-        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-        */
 
     }
 
@@ -341,91 +283,16 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
 
 
 
-    private void signIn(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask){
-        try{
-
-            GoogleSignInAccount acc = completedTask.getResult(ApiException.class);
-            Toast.makeText(Inicial.this,"Login efetuado com sucesso!",Toast.LENGTH_SHORT).show();
-            FirebaseGoogleAuth(acc);
-        }
-        catch (ApiException e){
-            Toast.makeText(Inicial.this,"Você está desconectado",Toast.LENGTH_SHORT).show();
-            FirebaseAuth.getInstance().signOut();
-            controlaBotoes(1, "", "");
-            FirebaseGoogleAuth(null);
-        }
-    }
-
-    private void FirebaseGoogleAuth(GoogleSignInAccount acct) {
-        //check if the account is null
-        if (acct != null) {
-            AuthCredential authCredential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-            firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        updateUI(user);
-                    } else {
-                        updateUI(null);
-                    }
-                }
-            });
-        }
-        else{
-            Toast.makeText(Inicial.this, "Erro", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void updateUI(FirebaseUser fUser){
-        //controlaBotoes(0);
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-        if(account !=  null){
-            String personName = account.getDisplayName();
-            String personGivenName = account.getGivenName();
-            String personFamilyName = account.getFamilyName();
-            String personEmail = account.getEmail();
-            String personId = account.getId();
-            Uri personPhoto = account.getPhotoUrl();
-            //Photo = account.getPhotoUrl();
-            controlaBotoes(0, personName, personEmail);
-            //imageView.setImageURI(Photo);
-            //Toast.makeText(Inicial.this,personName + personEmail ,Toast.LENGTH_SHORT).show();
-        }else {
-            controlaBotoes(1, "", "");
-        }
-
-    }
 
     private void controlaBotoes(int flag, String nome, String descricao){
-        if (flag != 1){//conectado
-            SignOut.setVisibility(View.VISIBLE);
-            Sair.setVisibility(View.VISIBLE);
-            SignIn.setVisibility(View.INVISIBLE);
-            Entrar.setVisibility(View.INVISIBLE);
-            textTitulo.setText(nome);
-            textDescricao.setText(descricao);
-        }else{//desconectado
-            SignOut.setVisibility(View.INVISIBLE);
-            Sair.setVisibility(View.INVISIBLE);
-            SignIn.setVisibility(View.VISIBLE);
-            Entrar.setVisibility(View.VISIBLE);
-            textTitulo.setText("App de Utilidade Pública");
-            textDescricao.setText("Desenvolvido por Joel Nascimento");
+
+        if (nome.length() <= 0){
+            tSair.setVisibility(View.GONE);
+            textNome.setText("Acessa Restinga");
+        }else{
+            textNome.setText(nome);
+            tSair.setVisibility(View.VISIBLE);
         }
     }
 
@@ -442,133 +309,5 @@ mAppBarConfiguration = new AppBarConfiguration.Builder(
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
-
-        return true;
-    }
-
-
-    private void prepareMenuData() {
-
-        MenuModel menuModel;
-        List<MenuModel> childModelsList = new ArrayList<MenuModel>();
-        MenuModel childModel;
-
-        menuModel = new MenuModel("Home", true, true, "Home"); //Menu of Java Tutorials
-        headerList.add(menuModel);
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
-
-        menuModel = new MenuModel("Meus Cadastros", true, true, ""); //Menu of Java Tutorials
-        headerList.add(menuModel);
-        childModelsList = new ArrayList<MenuModel>();
-        childModel = new MenuModel("Telefones", false, false, "CadTelefones");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("Alugueis", false, false, "CadAlugueis");
-        childModelsList.add(childModel);
-
-        childModel = new MenuModel("Doação", false, false, "CadDoação");
-        childModelsList.add(childModel);
-
-
-        if (menuModel.hasChildren) {
-            childList.put(menuModel, childModelsList);
-        }
-
-        menuModel = new MenuModel("Telefones", true, true, "Telefones"); //Menu of Java Tutorials
-        headerList.add(menuModel);
-        if (!menuModel.hasChildren) {
-            childList.put(menuModel, null);
-        }
-
-    }
-    */
-    /*
-    private GalleryFragment galleryFragment = null;
-    private void populateExpandableList() {
-
-        expandableListAdapter = new ExpandableListAdapter(this, headerList, childList);
-        expandableListView.setAdapter(expandableListAdapter);
-
-        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
-                if (headerList.get(groupPosition).isGroup) {
-                    if (!headerList.get(groupPosition).hasChildren) {
-                        //WebView webView = findViewById(R.id.webView);
-                        //webView.loadUrl(headerList.get(groupPosition).url);
-                        onBackPressed();
-                    }
-                }
-
-                return false;
-            }
-        });
-
-        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if (headerList.get(groupPosition).url.equals("Telefones")){
-                    Toast.makeText(v.getContext(), "Teste", Toast.LENGTH_LONG).show();
-                }
-                return false;
-            }
-        });
-
-
-
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-                if (childList.get(headerList.get(groupPosition)) != null) {
-                    MenuModel model = childList.get(headerList.get(groupPosition)).get(childPosition);
-                    if (model.url.length() > 0) {
-                        //WebView webView = findViewById(R.id.webView);
-                        //webView.loadUrl(model.url);
-                        //ação
-
-                        String url =model.url;
-                        if ("Telefones".equals(url)) {//ação
-
-
-                        } else if ("Outros".equals(url)) {
-                        }
-
-
-                        onBackPressed();
-                    }
-                }
-
-                return false;
-            }
-        });
-    }
-    */
 
 }

@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,25 +30,27 @@ public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIME_OUT = 3000;
     public List<Carrossel> mSliderItems = new ArrayList<Carrossel>();
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-
+/*
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("telefones-c6ce7")
                 .setApiKey("AIzaSyDmLNH8ce7hgXgZypIHHm2zHlPJ4IMQxfY")
                 .setDatabaseUrl("https://telefones-c6ce7.firebaseio.com")
                 .setStorageBucket("telefones-c6ce7.appspot.com")
                 .setGcmSenderId("683025115177").build();
-        FirebaseApp.initializeApp(this, options);
+        FirebaseApp.initializeApp(this, options);*/
+        FirebaseApp.initializeApp(this);
 
         try{
 
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
+            DatabaseReference usuarios = FirebaseDatabase.getInstance().getReference("usuarios");
             DatabaseReference telefones = FirebaseDatabase.getInstance().getReference("telefones");
 
             DatabaseReference eu_alugo = FirebaseDatabase.getInstance().getReference("eu_alugo");
@@ -77,7 +81,7 @@ public class SplashScreen extends AppCompatActivity {
             organica.keepSynced(true);
             vcsabia.keepSynced(true);
             saudepublica.keepSynced(true);
-
+            usuarios.keepSynced(true);
 
         }catch (Exception e){
 
@@ -134,12 +138,29 @@ public class SplashScreen extends AppCompatActivity {
 
                 // Esse método será executado sempre que o timer acabar
                 // E inicia a activity principal
+
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    Toast.makeText(getApplicationContext(), "Bem vindo de volta " + user.getEmail() + "!", Toast.LENGTH_LONG).show();
+                    /*
+                    Intent i = new Intent(SplashScreen.this,
+                            Inicial.class);
+                    startActivity(i);
+
+                    // Fecha esta activity
+                    finish();
+
+                     */
+                }
                 Intent i = new Intent(SplashScreen.this,
                         Inicial.class);
                 startActivity(i);
 
                 // Fecha esta activity
                 finish();
+
+
             }
         }, SPLASH_TIME_OUT);
     }

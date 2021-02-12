@@ -1,5 +1,8 @@
 package com.joel.a0800restinga.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -23,6 +26,8 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
 
     private BottomNavigationView navigationView;
     private TextView textoinicial;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,34 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
         navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        currentUser =firebaseAuth.getCurrentUser();
+        if (currentUser == null) {
+            callDialog("Parece que você ainda não tem permissão de cadastrar dados no aplicativo. Clique em Login para continuar!", "Alerta");
+        }
+
+    }
+
+    private void callDialog(String message, String titulo){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(MeusCadastros.this);
+        builder.setMessage(message)
+                .setTitle(titulo);
+        builder.setPositiveButton("Login", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(MeusCadastros.this, LoginActivity.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
@@ -68,14 +101,13 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
 
         return true;
     }
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser currentUser;
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         firebaseAuth = FirebaseAuth.getInstance();
         currentUser =firebaseAuth.getCurrentUser();
-        if (currentUser == null){
-            Toast.makeText(getApplicationContext(), "Você deve estar logado no aplicativo", Toast.LENGTH_LONG).show();
+        if (currentUser == null) {
+            callDialog("Parece que você ainda não tem permissão de cadastrar dados no aplicativo. Clique em Login para continuar!", "Alerta");
         }else {
             String Email = firebaseAuth.getCurrentUser().getEmail();
             textoinicial.setText("");

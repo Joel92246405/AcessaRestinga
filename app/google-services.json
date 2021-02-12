@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:683025115177:android:da34161233dab0ad3e5438",
+        "mobilesdk_app_id": "1:683025115177:android:a562b291533c6b083e5438",
         "android_client_info": {
-          "package_name": "com.example.a0800restinga"
+          "package_name": "com.joel.a0800restinga"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "683025115177-i18mjbfvc4rhnvjnnc2kovi9o87imqlh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.joel.a0800restinga",
+            "certificate_hash": "289bc180ecdbc6d2574ebae86c2d3ca1918c9908"
+          }
+        },
         {
           "client_id": "683025115177-iammiiauaf9avj4n1ldq3ahm9hiiagrv.apps.googleusercontent.com",
           "client_type": 3

@@ -17,12 +17,12 @@
 
 
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_telefones"
             android:icon="@mipmap/ic_contatos2"
             android:title="@string/menu_gallery" />
 
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_vocesabia"
             android:icon="@mipmap/ic_vocesabia"
             android:title="@string/menu_slideshow" />
 
@@ -37,7 +37,7 @@
             android:title="Aluguel" />
 
         <item
-            android:id="@+id/nav_informativo"
+            android:id="@+id/nav_transporte"
             android:icon="@mipmap/ic_transporte"
             android:title="Transporte" />
 

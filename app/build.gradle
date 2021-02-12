@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     signingConfigs {
@@ -22,8 +23,8 @@ android {
         applicationId 'com.joel.a0800restinga'
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 16
-        versionName "1.2.6"
+        versionCode 22
+        versionName "1.3.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -61,7 +62,9 @@ dependencies {
     implementation 'com.github.smarteist:autoimageslider:1.4.0'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.google.firebase:firebase-storage:19.2.1'
-    implementation 'com.google.firebase:firebase-auth:20.0.2'
+
+    implementation 'com.google.firebase:firebase-invites:17.0.0'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
@@ -78,6 +81,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-gcm:+'
     implementation 'com.google.android.gms:play-services-gcm:+'
     "com.google.android.gms:play-services-location:+"
+    implementation 'com.google.firebase:firebase-dynamic-links'
 
 
     //implementation 'com.google.firebase:firebase-core:9.6.1'
@@ -86,9 +90,18 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.3.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
     // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies
+
+
+
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    implementation 'com.google.firebase:firebase-auth:20.0.2'
+    // Also declare the dependency for the Google Play services library and specify its version
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
 
 }

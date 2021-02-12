@@ -5,6 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
+
     <fragment
         android:id="@+id/nav_home"
         android:name="com.joel.a0800restinga.ui.home.HomeFragment"
@@ -17,13 +18,13 @@
         android:label="Meus Dados"
         />
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_telefones"
         android:name="com.joel.a0800restinga.ui.telefones.TelefonesFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_vocesabia"
         android:name="com.joel.a0800restinga.ui.vcsabia.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
@@ -40,7 +41,7 @@
         tools:layout="@layout/fragment_eualugo" />
 
     <fragment
-        android:id="@+id/nav_informativo"
+        android:id="@+id/nav_transporte"
         android:name="com.joel.a0800restinga.ui.informativos.InformativosFragment"
         android:label="Transporte"
         tools:layout="@layout/fragment_informativos" />
@@ -55,5 +56,7 @@
         android:name="com.joel.a0800restinga.ui.saudepublica.SaudePublicaFragment"
         android:label="Saúde Pública"
         tools:layout="@layout/fragment_saudepublica" />
+
+
 
 </navigation>

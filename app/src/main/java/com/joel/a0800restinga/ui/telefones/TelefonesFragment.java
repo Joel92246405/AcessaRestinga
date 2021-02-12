@@ -1,6 +1,9 @@
 package com.joel.a0800restinga.ui.telefones;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,7 +26,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.Query;
+import com.joel.a0800restinga.Activities.MeusCadastros;
 import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_Telefones;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.Model.TelefonesModel;
@@ -35,6 +41,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.drakeet.materialdialog.MaterialDialog;
 
 public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telefones.ItemClickListener, AdapterView.OnItemSelectedListener{
 
@@ -80,6 +88,21 @@ public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telef
 
         root = inflater.inflate(R.layout.activity_telefones, container, false);
 
+        FloatingActionButton fab = root.findViewById(R.id.fab_Telefones);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Acesse o Menu Meus Cadastros para inserir seu telefone na lista pública!", Snackbar.LENGTH_LONG)
+                        .setAction("IR AGORA", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent meusCadastros = new Intent(v.getContext(), MeusCadastros.class);
+                                startActivity(meusCadastros);
+                            }
+                        }).show();
+            }
+        });
+
         spinnerCategorias = (Spinner) root.findViewById(R.id.spinner);
         //imageButton = (ImageButton) root.findViewById(R.id.imageSearch);
         //editText = (EditText) root.findViewById(R.id.editSearch);
@@ -114,22 +137,23 @@ public class TelefonesFragment extends Fragment implements RecyclerAdapter_Telef
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }
 
-        QueroAnunciar = root.findViewById(R.id.COLOCARMEUFONE);
-        QueroAnunciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Faça o Login no aplicativo no Menu Lateral e preencha o cadastro", Toast.LENGTH_LONG).show();
-                /*String url = "https://forms.gle/fGLLwaqu3uLVEWjW9";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                startActivity(i);
-
-                 */
-            }
-        });
         return root;
     }
 
+    private void callDialog(Context ctx,
+                            String message, String titulo){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setMessage(message)
+                .setTitle(titulo);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
     private void search() {
         String categoria = (String) spinnerCategorias.getSelectedItem();
 

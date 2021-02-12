@@ -15,6 +15,29 @@
 
 
 
+    <string name="title_activity_login">Autenticação</string>
+
+    <!-- Strings related to login -->
+
+
+    <string name="prompt_email">Email</string>
+
+    <string name="prompt_password">Senha</string>
+
+    <string name="action_sign_in">Faça o Login ou Registre</string>
+
+    <string name="action_sign_in_short">Entrar</string>
+
+    <string name="error_invalid_email">O endereço de e-mail é inválido</string>
+
+    <string name="error_invalid_password">A senha digitada é muito pequena</string>
+
+    <string name="error_incorrect_password">Senha incorreta</string>
+
+    <string name="error_field_required">This field is required</string>
+
+    <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions." </string>
+
 
 
     <string name="LINKDEEXEMPLO">
@@ -50,6 +73,7 @@
 
     </string-array>
 
+    <string name="meutelefone">INSERIR MEU TELEFONE</string>
     <string name="title_activity_inicial">Acessa Restinga</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="permdesc_deadlyActivity">Permissão de acesso a contatos</string>

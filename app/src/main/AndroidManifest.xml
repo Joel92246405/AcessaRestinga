@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.joel.a0800restinga">
+    package="com.joel.a0800restinga"
+    >
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,8 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_prefeitura"
         android:supportsRtl="true"
         android:theme="@style/Theme.0800Restinga"
-        android:name="androidx.multidex.MultiDexApplication" >
-        <activity android:name=".Activities.Login"></activity>
+        android:name="androidx.multidex.MultiDexApplication"
+        >
+
+
+
         <activity
             android:name=".Activities.SplashScreen"
             android:label="@string/app_name"
@@ -26,18 +30,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.Inicial"
-            android:theme="@style/Theme.0800Restinga.NoActionBar" />
-        <activity android:name=".Activities.EuAlugo" />
-        <activity android:name=".Activities.MeusCadastros" />
-        <activity android:name=".Activities.TelaInicial" />
-        <activity android:name=".Activities.EstouDoando" />
-        <activity android:name=".Activities.Telefones" />
-        <activity android:name=".Activities.VoceSabia" />
-        <activity android:name=".Activities.Informativos" />
-        <activity android:name=".Activities.Leis" />
-        <activity android:name=".Activities.SaudePublica" />
+            android:theme="@style/Theme.0800Restinga.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.LoginActivity" android:label="@string/title_activity_login" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.EuAlugo" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.PoliticaPrivacidadeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.MeusCadastros" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.TelaInicial" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.EstouDoando" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Telefones" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.VoceSabia" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Informativos" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Leis" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SaudePublica" android:screenOrientation="portrait"/>
+
+
 
         <service
             android:name=".Uteis.MyFirebaseMessagingService"

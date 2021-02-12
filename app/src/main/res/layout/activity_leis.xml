@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.Leis">
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <TextView
         android:id="@+id/titulo"
         android:layout_width="fill_parent"
@@ -24,22 +26,10 @@
         android:padding="8dp"
         android:text="É a Constituição Municipal, ou seja, o conjunto de normas jurídicas que regem o município. São feitas pelos Vereadores e sancionadas pelos prefeitos."></TextView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/desc_lei"
-        android:id="@+id/ButtonEmailCamara"
-        android:text="EMAIL CÂMARA MUNICIPAL"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:background="#001B71"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        ></Button>
+
 
     <com.github.barteksc.pdfviewer.PDFView
-        android:layout_below="@+id/ButtonEmailCamara"
+
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -50,5 +40,14 @@
             android:layout_height="match_parent"
             />
     -->
-
 </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_legislativo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+
+        app:srcCompat="@android:drawable/ic_dialog_email" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
