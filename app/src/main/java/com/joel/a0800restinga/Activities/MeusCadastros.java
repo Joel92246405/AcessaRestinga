@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.joel.a0800restinga.R;
 import com.joel.a0800restinga.ui.cadastros.estoudoando.CadastroEstouDoandoFragment;
 import com.joel.a0800restinga.ui.cadastros.eualugo.CadastroEuAlugoFragment;
+import com.joel.a0800restinga.ui.cadastros.meusprodutos.MinhaEmpresaFragment;
 import com.joel.a0800restinga.ui.cadastros.telefones.CadastroTelefonesFragment;
 
 public class MeusCadastros extends AppCompatActivity  implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -40,10 +41,10 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setElevation(1);
-        textoinicial = (TextView) findViewById(R.id.telainicial);
+        //textoinicial = (TextView) findViewById(R.id.telainicial);
 
 
-        navigationView = (BottomNavigationView) findViewById(R.id.navigationView);
+        navigationView = (BottomNavigationView) findViewById(R.id.navigation_view);
         navigationView.setOnNavigationItemSelectedListener(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -110,7 +111,7 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
             callDialog("Parece que você ainda não tem permissão de cadastrar dados no aplicativo. Clique em Login para continuar!", "Alerta");
         }else {
             String Email = firebaseAuth.getCurrentUser().getEmail();
-            textoinicial.setText("");
+
             switch (item.getItemId()) {
                 case R.id.navigation_telefones: {
                     getSupportActionBar().setTitle("Telefones");
@@ -118,15 +119,26 @@ public class MeusCadastros extends AppCompatActivity  implements BottomNavigatio
                     openFragment(fragment);
                     break;
                 }
+
+
+
                 case R.id.navigation_eualugo: {
                     getSupportActionBar().setTitle("Eu Alugo");
                     Fragment fragment = CadastroEuAlugoFragment.newInstance();
                     openFragment(fragment);
                     break;
                 }
+
                 case R.id.navigation_estoudoando: {
                     getSupportActionBar().setTitle("Estou Doando");
                     Fragment fragment = CadastroEstouDoandoFragment.newInstance();
+                    openFragment(fragment);
+                    break;
+                }
+
+                case R.id.navigation_meusprodutos: {
+                    getSupportActionBar().setTitle("Meus Produtos");
+                    Fragment fragment = MinhaEmpresaFragment.newInstance();
                     openFragment(fragment);
                     break;
                 }

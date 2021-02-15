@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <EditText
+
+        android:id="@+id/nome_empresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/telefone_eualugo"
+
+        android:hint="Insira o nome da sua empresa"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="true"
+        android:singleLine="true">
+
+    </EditText>
+    <EditText
+        android:id="@+id/descritivo_empresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:hint="Descreva melhor sua empresa"
+        android:inputType="textMultiLine"
+        android:selectAllOnFocus="true"
+        android:lines="5"
+        android:maxLines="5"
+        android:singleLine="true">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/telefone_empresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descritivo_doacao"
+        android:layout_marginTop="1dp"
+        android:hint="Telefone (Whatsapp)"
+        android:inputType="phone"
+        android:selectAllOnFocus="false"
+        android:singleLine="true">
+
+    </EditText>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dip"
+    android:orientation="horizontal">
+    <Button
+
+        android:id="@+id/btnSelecionarIumagemEmpresa"
+        android:layout_margin="5dp"
+        android:layout_width="200dip"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Selecionar Imagem"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imagemEmpresa"/>
+</LinearLayout>
+
+
+    <Button
+
+        android:id="@+id/cadastrarempresa"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="confirmar">
+
+    </Button>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recicler_empresas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+</LinearLayout>

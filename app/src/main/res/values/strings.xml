@@ -14,7 +14,6 @@
     <string name="link">NOMEDOAPLICATIVO</string>
 
 
-
     <string name="title_activity_login">Autenticação</string>
 
     <!-- Strings related to login -->
@@ -37,7 +36,6 @@
     <string name="error_field_required">This field is required</string>
 
     <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions." </string>
-
 
 
     <string name="LINKDEEXEMPLO">
@@ -91,4 +89,8 @@
     <string name="lei_organica">teste</string>
     <string name="inicial">Este app tem a finalidade de atender você, cidadão Restinguense com várias funcionalidades de Utilidade </string>
     <string name="euAlugo">Aluguel</string>
+    <string name="title_activity_teste">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
