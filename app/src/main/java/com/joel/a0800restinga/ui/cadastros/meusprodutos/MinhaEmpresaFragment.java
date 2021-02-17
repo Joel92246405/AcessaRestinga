@@ -2,8 +2,11 @@ package com.joel.a0800restinga.ui.cadastros.meusprodutos;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -35,6 +38,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,30 +47,39 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.joel.a0800restinga.Activities.Telefones;
 import com.joel.a0800restinga.Model.EmpresaModel;
 import com.joel.a0800restinga.R;
+import com.joel.a0800restinga.RecyclerAdapter.RecyclerAdapter_MinhaEmpresa;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
 import static android.app.Activity.RESULT_OK;
 
-public class MinhaEmpresaFragment extends Fragment implements View.OnClickListener/*, AdapterView.OnItemSelectedListener, RecyclerAdapter_EuAlugo.ItemClickListener*/ {
+public class MinhaEmpresaFragment extends Fragment implements View.OnClickListener{
 
     /*Instâncias de banco*/
     private FirebaseAuth firebaseAuth;
     private Query myTopPostsQuery;
     private DatabaseReference databaseReference;
     private String Email = "";
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     /*Recursos para o Recycler*/
-    private List<String> NomeEmpresa;
+    private List<String> NomeEmpresa, TelefoneEmpresa;
     private RecyclerView recyclerView;
-    //RecyclerAdapter_EuAlugo adapter;
+    RecyclerAdapter_MinhaEmpresa adapter;
 
 
     private boolean PERMISSION_GRANTED = false;
@@ -73,11 +87,14 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
 
     /*Campos do cadastro*/
     private View root;
+    private String CaminhoDaFoto;
+    private Uri CaminhoDaFotoUri;
     private EmpresaModel empresaModel;
     private EditText Nome, Telefone, Descricao;
     private Button Cadastrar, SelecionarImagem;
     private ImageView ImagemDaEmpresa;
     private int RESULT_GALERIA = 222;
+    private Boolean FotoSalva = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -91,14 +108,15 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
         Telefone = (EditText) root.findViewById(R.id.telefone_empresa);
         Descricao = (EditText) root.findViewById(R.id.descritivo_empresa);
         Cadastrar = (Button) root.findViewById(R.id.cadastrarempresa);
-        SelecionarImagem = (Button) root.findViewById(R.id.btnSelecionarIumagemEmpresa);
+
         ImagemDaEmpresa = (ImageView) root.findViewById(R.id.imagemEmpresa);
 
         Cadastrar.setOnClickListener(this);
-        SelecionarImagem.setOnClickListener(this);
+        ImagemDaEmpresa.setOnClickListener(this);
 
         /*Recursos do Recycler*/
         NomeEmpresa = new ArrayList<String>();
+        TelefoneEmpresa = new ArrayList<String>();
 
         /*Recursos de Conectividade*/
         ConnectivityManager cm =
@@ -112,11 +130,14 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
             Toast.makeText(getContext(), "Você está desconectado", Toast.LENGTH_LONG).show();
         }else{
 
+            storage = FirebaseStorage.getInstance();
+            storageReference = storage.getReference();
+
             firebaseAuth = FirebaseAuth.getInstance();
             Email = firebaseAuth.getCurrentUser().getEmail();
 
             myTopPostsQuery = FirebaseDatabase.getInstance().getReference("minha_empresa")
-                    .orderByChild("email")
+                    .orderByChild("eMailControle")
                     .equalTo(Email);
 
             myTopPostsQuery.addValueEventListener(new ValueEventListener() {
@@ -124,17 +145,18 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     NomeEmpresa.clear();// = new ArrayList<String>();
-
+                    TelefoneEmpresa.clear();
                     for (DataSnapshot d : snapshot.getChildren()) {
                         empresaModel = d.getValue(EmpresaModel.class);
                         NomeEmpresa.add(empresaModel.getNome());
+                        TelefoneEmpresa.add(empresaModel.getTelefone());
                     }
 
                     recyclerView = root.findViewById(R.id.recicler_empresas);
                     recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-                    //adapter = new RecyclerAdapter_EuAlugo(root.getContext(), nome, telefone, valor, whatsapp, titulo, ocultarvalor, endereco, categoria, false);
-                    //recyclerView.setAdapter(adapter);
+                    adapter = new RecyclerAdapter_MinhaEmpresa(root.getContext(), NomeEmpresa, TelefoneEmpresa);
+                    recyclerView.setAdapter(adapter);
                 }
 
                 @Override
@@ -148,6 +170,8 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
 
         return root;
     }
+
+
 
     public static MinhaEmpresaFragment newInstance() {
         return new MinhaEmpresaFragment();
@@ -183,55 +207,25 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v == Cadastrar) {
-/*
-            if (Titulo.getText().toString().isEmpty()){
-                Titulo.setError("Titulo não informado");
+
+            if (Nome.getText().toString().isEmpty()){
+                Nome.setError("Você deve informar o nome da sua empresa!");
             }else{
-                if (Nome.getText().toString().isEmpty()){
-                    Nome.setError("Nome não informado");
+                if (Telefone.getText().toString().isEmpty()){
+                    Telefone.setError("Você deve informar o telefone de WhatsApp da sua empresa!");
                 }else{
-                    if (Telefone.getText().toString().isEmpty()) {
-                        Telefone.setError("Telefone não informado");
+                    if (Descricao.getText().toString().isEmpty()) {
+                        Descricao.setError("Descreva a sua empresa!");
                     }else {
 
-
-                        String titulo = Titulo.getText().toString();
-                        String nome = Nome.getText().toString();
-                        String telefone = Telefone.getText().toString();
-                        String endereco = Endereco.getText().toString();
-                        String valor = Valor.getText().toString();
-                        String categoria = this.spinnerCategorias.getSelectedItem().toString();
-                        String whatsApp = "N";
-                        if (WhatsApp.isChecked())
-                            whatsApp = "S";
-
-                        String ocultarValor = "N";
-                        if (OcultarValor.isChecked())
-                            ocultarValor = "S";
-
-
-                        EuAlugoModel user = new EuAlugoModel(nome, telefone, valor, whatsApp, titulo, ocultarValor, endereco, categoria, Email);
-                        String Id = nome.replaceAll("\\s+", "") + telefone.replaceAll("\\s+", "");
-                        databaseReference.child(Id).setValue(user);
-                        Toast.makeText(v.getContext(), "Dados inseridos com sucesso", Toast.LENGTH_LONG).show();
-                        //myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
-
-                        this.Nome.setText("");
-                        this.Telefone.setText("");
-                        this.Titulo.setText("");
-                        this.Valor.setText("");
-                        this.Endereco.setText("");
-                        this.Telefone.setText("");
-                        this.WhatsApp.setChecked(false);
-                        this.OcultarValor.setChecked(false);
-                        hideSoftKeyboard();
+                        uploadImage();
                     }
                 }
             }
-            */
+
         }
 
-        if (v == SelecionarImagem) {
+        if (v == ImagemDaEmpresa) {
 
             if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(
@@ -263,7 +257,8 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
 
         if (requestCode == RESULT_GALERIA && resultCode == RESULT_OK){
 
-            Uri imagemURI = data.getData();
+
+            CaminhoDaFotoUri = data.getData();
             String[] colunaArquivo = {MediaStore.Images.Media.DATA};
 
             if (Build.VERSION.SDK_INT >= 29) {
@@ -271,26 +266,18 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
                         colunaArquivo, null, null, MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC");
                 if (cursor_29.moveToFirst()) {
 
-                    // You can replace '0' by 'cursor.getColumnIndex(MediaStore.Images.ImageColumns._ID)'
-                    // Note that now, you read the column '_ID' and not the column 'DATA'
-                    //Uri imageUri = ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cursor_29.getInt(0));
 
-                    // now that you have the media URI, you can decode it to a bitmap
                     try  {
-                            int ColumnIndex =cursor_29.getColumnIndex(colunaArquivo[0]);
-                            String caminhoDaFoto = cursor_29.getString(ColumnIndex);
-
+                        int ColumnIndex =cursor_29.getColumnIndex(colunaArquivo[0]);
+                        String caminhoDaFoto = cursor_29.getString(ColumnIndex);
                         File imgFile = new  File(caminhoDaFoto);
-
                         if(imgFile.exists()){
-
                             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-                            //Bitmap bitmap = BitmapFactory.decodeFile(caminhoDaFoto);
                             ImagemDaEmpresa.setImageBitmap(myBitmap);
                         }
 
-
                     } catch (Exception ex) {
+                        Toast.makeText(getContext(), "Não foi possivel carregar sua imagem " + ex.toString(), Toast.LENGTH_LONG).show();
                         Log.d("IMG_UP", ex.toString());
                     }
 
@@ -300,7 +287,7 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
             }
              else {
 
-                Cursor cursor = getContext().getContentResolver().query(imagemURI, colunaArquivo, null, null, null);
+                Cursor cursor = getContext().getContentResolver().query(CaminhoDaFotoUri, colunaArquivo, null, null, null);
                 cursor.moveToFirst();
                 int ColumnIndex =cursor.getColumnIndex(colunaArquivo[0]);
                 String caminhoDaFoto = cursor.getString(ColumnIndex);
@@ -314,7 +301,103 @@ public class MinhaEmpresaFragment extends Fragment implements View.OnClickListen
     }
 
 
+    private void uploadImage(){
+        if (CaminhoDaFotoUri != null) {
+            CaminhoDaFoto = UUID.randomUUID().toString();
+            CaminhoDaFoto = Nome.getText().toString().replaceAll("\\s+", "") + Telefone.getText().toString().replaceAll("\\s+", "");
+            // Code for showing progressDialog while uploading
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Salvando os dados...");
+            progressDialog.show();
 
+            // Defining the child of storageReference
+            StorageReference ref = storageReference
+                    .child(
+                            "images/"
+                                    + CaminhoDaFoto);
+
+            // adding listeners on upload
+            // or failure of image
+            ref.putFile(CaminhoDaFotoUri)
+                    .addOnSuccessListener(
+                            new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    FotoSalva = true;
+                                    // Image uploaded successfully
+                                    // Dismiss dialog
+                                    progressDialog.dismiss();
+                                    Toast
+                                            .makeText(getActivity(),
+                                                    "Image Uploaded!!",
+                                                    Toast.LENGTH_SHORT)
+                                            .show();
+                                    insertEmpresa();
+                                }
+                            })
+
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e)
+                        {
+                            FotoSalva = false;
+                            // Error, Image not uploaded
+                            progressDialog.dismiss();
+                            Toast
+                                    .makeText(getActivity(),
+                                            "Failed " + e.getMessage(),
+                                            Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    })
+                    .addOnProgressListener(
+                            new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+                                // Progress Listener for loading
+                                // percentage on the dialog box
+                                @Override
+                                public void onProgress(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    double progress
+                                            = (100.0
+                                            * taskSnapshot.getBytesTransferred()
+                                            / taskSnapshot.getTotalByteCount());
+                                    progressDialog.setMessage(
+                                            "Uploaded "
+                                                    + (int)progress + "%");
+                                }
+                            });
+        }
+    }
+
+    private void insertEmpresa(){
+
+
+                String nome = Nome.getText().toString();
+                String telefone = Telefone.getText().toString();
+                String descricao = Descricao.getText().toString();
+
+                String codigoDaEmpresa = nome.replaceAll("\\s+", "") + telefone.replaceAll("\\s+", "");
+                EmpresaModel empresaModel = new EmpresaModel(codigoDaEmpresa, nome, telefone, descricao, Email, CaminhoDaFoto, "P");
+
+
+                databaseReference.child(codigoDaEmpresa).setValue(empresaModel);
+                Toast.makeText(getContext(), "Empresa inserida com sucesso", Toast.LENGTH_LONG).show();
+                //myTopPostsQuery.addListenerForSingleValueEvent(valueEventListener);
+
+                this.Nome.setText("");
+                this.Telefone.setText("");
+                this.Descricao.setText("");
+                ImagemDaEmpresa.setImageBitmap(null);
+                hideSoftKeyboard();
+
+
+    }
 
     private void hideSoftKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);

@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/navigation_meusprodutos"
-            android:icon="@mipmap/ic_covid"
-            android:title="Estou Doando"/>
+            android:icon="@mipmap/ic_empresa"
+            android:title="Empresa"/>
 
     </menu>

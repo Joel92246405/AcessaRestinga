@@ -30,6 +30,12 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
+        android:id="@+id/nav_pedidos"
+        android:name="com.joel.a0800restinga.ui.pedido.PedidoFragment"
+        android:label="@string/menu_pedido"
+        tools:layout="@layout/fragment_empresa_pedido" />
+
+    <fragment
         android:id="@+id/nav_estoudoando"
         android:name="com.joel.a0800restinga.ui.estoudoando.EstouDoandoFragment"
         android:label="Estou Doando" />

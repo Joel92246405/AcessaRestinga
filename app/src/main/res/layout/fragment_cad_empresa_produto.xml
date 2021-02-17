@@ -1,0 +1,113 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".Activities.LoginActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.0800Restinga.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarProduto"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.0800Restinga.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+    
+    <!-- Login progress -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+        <EditText
+
+            android:id="@+id/nome_produto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Insira o nome do produto"
+            android:inputType="textMultiLine"
+            android:selectAllOnFocus="true"
+
+            android:singleLine="true">
+
+        </EditText>
+        <EditText
+            android:id="@+id/descritivo_produto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:hint="Descreva um pouco o produto"
+            android:inputType="textMultiLine"
+            android:selectAllOnFocus="true"
+            android:lines="3"
+            android:maxLines="3"
+            android:singleLine="true">
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/valor_produto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descritivo_doacao"
+            android:layout_marginTop="1dp"
+            android:hint="Valor do Produto"
+            android:inputType="numberDecimal|number"
+            android:selectAllOnFocus="false"
+            android:singleLine="true">
+
+        </EditText>
+
+        <RatingBar
+            android:id="@+id/relevancia_produto"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="2.0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imagemProduto"
+                android:src="@drawable/add_imagem"/>
+        </LinearLayout>
+
+
+        <Button
+
+            android:id="@+id/cadastrarproduto"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="confirmar">
+
+        </Button>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recicler_produtos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+</LinearLayout>
+

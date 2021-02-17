@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="5dp"
     >
     <EditText
 
@@ -47,18 +48,12 @@
     android:layout_width="match_parent"
     android:layout_height="100dip"
     android:orientation="horizontal">
-    <Button
 
-        android:id="@+id/btnSelecionarIumagemEmpresa"
-        android:layout_margin="5dp"
-        android:layout_width="200dip"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Selecionar Imagem"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imagemEmpresa"/>
+        android:id="@+id/imagemEmpresa"
+        android:src="@drawable/add_imagem"/>
 </LinearLayout>
 
 

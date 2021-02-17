@@ -16,23 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.database.annotations.Nullable;
 import com.joel.a0800restinga.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -81,7 +69,7 @@ public class Inicial extends AppCompatActivity implements NavigationView.OnNavig
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inicial);
+        setContentView(R.layout.activity_inicial_navigationview);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,7 +89,7 @@ public class Inicial extends AppCompatActivity implements NavigationView.OnNavig
         navigationView.setNavigationItemSelectedListener(this);
 
 mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_meus_cadastros, R.id.nav_telefones, R.id.nav_vocesabia, R.id.nav_transporte, R.id.nav_estoudoando, R.id.nav_eualugo, R.id.nav_leis, R.id.navsaude)
+                R.id.nav_home, R.id.nav_meus_cadastros, R.id.nav_telefones, R.id.nav_pedidos, R.id.nav_vocesabia, R.id.nav_transporte, R.id.nav_estoudoando, R.id.nav_eualugo, R.id.nav_leis, R.id.navsaude)
                 .setDrawerLayout(drawer)
                 .build();
 

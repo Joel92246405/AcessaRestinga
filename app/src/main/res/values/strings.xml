@@ -36,7 +36,7 @@
     <string name="error_field_required">This field is required</string>
 
     <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions." </string>
-
+    <string name="empresas_titulo" type="id">Empresas</string>
 
     <string name="LINKDEEXEMPLO">
         <a href="http://google.com">Desenvolvido por: INSERIRTEXTO</a>
@@ -93,4 +93,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="deseja_excluir">Ao excluir a empresa, será apagado seus produtos cadastrados e toda sua configuração. Deseja realmente continuar?</string>
+    <string name="deseja_excluir_produto">Deseja realmente excluir este produto?</string>
+    <string name="menu_pedido">Pedido</string>
 </resources>

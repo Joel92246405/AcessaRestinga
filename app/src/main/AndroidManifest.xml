@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_prefeitura"
         android:supportsRtl="true"
-        android:theme="@style/Theme.0800Restinga">
+        android:theme="@style/Theme.0800Restinga"
+        android:requestLegacyExternalStorage="true">
         <activity
             android:name=".Activities.SplashScreen"
             android:label="@string/app_name"
@@ -34,6 +35,27 @@
             android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.ProdutosActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.Pedido"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.FinalizaPedidoConferenciaEnvio"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".Activities.FinalizaPedido"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.EuAlugo"
             android:screenOrientation="portrait" />

@@ -71,6 +71,10 @@ public class SplashScreen extends AppCompatActivity {
 
             DatabaseReference estoudoando = FirebaseDatabase.getInstance().getReference("estoudoando");
 
+            DatabaseReference minhaempresa = FirebaseDatabase.getInstance().getReference("minha_empresa");
+
+            DatabaseReference minhaempresaprodutos = FirebaseDatabase.getInstance().getReference("minha_empresa_produtos");
+
             telefones.keepSynced(true);
             estoudoando.keepSynced(true);
             carrossel.keepSynced(true);
@@ -82,6 +86,8 @@ public class SplashScreen extends AppCompatActivity {
             vcsabia.keepSynced(true);
             saudepublica.keepSynced(true);
             usuarios.keepSynced(true);
+            minhaempresa.keepSynced(true);
+            minhaempresaprodutos.keepSynced(true);
 
         }catch (Exception e){
 

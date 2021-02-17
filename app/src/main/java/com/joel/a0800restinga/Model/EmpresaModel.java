@@ -3,6 +3,21 @@ package com.joel.a0800restinga.Model;
 public class EmpresaModel {
     private String CodigoDaEmpresaAleatorio;
     private String Nome;
+    private String Telefone;
+    private String Descricao;
+    private String eMailControle;
+    private String imagemLogo;
+    private String Status;
+
+    public EmpresaModel(String codigoDaEmpresaAleatorio, String nome, String telefone, String descricao, String eMailControle, String imagemLogo, String status) {
+        CodigoDaEmpresaAleatorio = codigoDaEmpresaAleatorio;
+        Nome = nome;
+        Telefone = telefone;
+        Descricao = descricao;
+        this.eMailControle = eMailControle;
+        this.imagemLogo = imagemLogo;
+        Status = status;
+    }
 
     public EmpresaModel() {
 
@@ -56,17 +71,7 @@ public class EmpresaModel {
         this.imagemLogo = imagemLogo;
     }
 
-    public EmpresaModel(String codigoDaEmpresaAleatorio, String nome, String telefone, String descricao, String eMailControle, String imagemLogo) {
-        CodigoDaEmpresaAleatorio = codigoDaEmpresaAleatorio;
-        Nome = nome;
-        Telefone = telefone;
-        Descricao = descricao;
-        this.eMailControle = eMailControle;
-        this.imagemLogo = imagemLogo;
-    }
 
-    private String Telefone;
-    private String Descricao;
-    private String eMailControle;
-    private String imagemLogo;
+
+
 }

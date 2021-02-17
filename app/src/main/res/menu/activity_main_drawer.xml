@@ -27,6 +27,11 @@
             android:title="@string/menu_slideshow" />
 
         <item
+            android:id="@+id/nav_pedidos"
+            android:icon="@mipmap/ic_pedidos"
+            android:title="@string/menu_pedido" />
+
+        <item
             android:id="@+id/nav_estoudoando"
             android:icon="@mipmap/ic_doacao"
             android:title="Estou Doando" />
